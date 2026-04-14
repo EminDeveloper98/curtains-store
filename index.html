@@ -2025,7 +2025,7 @@
 
         return `
     <div class="print-copy-label" style="display:none;" id="copy-label-placeholder"></div>
- 
+
     <div class="print-header">
       <div>
         <div class="print-shop-name">EV Tekstil</div>
@@ -2037,7 +2037,7 @@
         <div class="print-date-row">Tarix: ${o.date}</div>
       </div>
     </div>
- 
+
     <div class="print-info-bar">
       <div class="print-info-cell">
         <div class="print-info-label">Satıcı</div>
@@ -2058,7 +2058,7 @@
         <div class="print-info-value" style="font-size:8.5pt;">${o.deliveryDate || '—'}</div>
       </div>
     </div>
- 
+
     <div class="print-section-title">Sifariş Məhsulları</div>
     <table class="print-table">
       <thead><tr>
@@ -2073,9 +2073,9 @@
       </tr></thead>
       <tbody>${rows}</tbody>
     </table>
- 
+
     ${o.notes ? `<div class="print-note"><strong>📝 Qeyd:</strong> ${o.notes}</div>` : ''}
- 
+
     <div class="print-totals-cards">
       <div class="print-total-card card-total">
         <div class="ptc-label">Ümumi Məbləğ</div>
@@ -2090,14 +2090,14 @@
         <div class="ptc-value">${o.remaining.toFixed(2)} ₼</div>
       </div>
     </div>
- 
+
     <div class="print-thin-divider" style="margin-top:10px;"></div>
- 
+
     <div class="print-agreement">
       Mən, aşağıda imza atan şəxs, yuxarıda qeyd edilmiş ölçüləri tam qəbul etdiyimi,
       bütün məsuliyyəti öz üzərimə götürdüyümü və bu sənədi öz razılığım əsasında imzaladığımı təsdiq edirəm.
     </div>
- 
+
     <div class="print-signatures">
       <div class="print-sig-box">
         <div class="print-sig-title">Təhvil Verdi</div>
@@ -2112,7 +2112,7 @@
         <div class="print-sig-label">Alıcının İmzası</div>
       </div>
     </div>
- 
+
     <div class="print-warning">
       ⚠️ Sifarişlər yalnız sifariş verən müştəriyə təhvil verilir. Başqa şəxslərə sifariş verilmir.
     </div>`;
