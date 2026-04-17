@@ -515,37 +515,6 @@
       .modal-close:hover {
         color: var(--red);
       }
-
-      /* PAYMENT MODAL */
-      .payment-modal {
-        background: #fff;
-        border-radius: 16px;
-        width: 94%;
-        max-width: 480px;
-        padding: 32px;
-        box-shadow: 0 16px 60px rgba(0, 0, 0, 0.3);
-        position: relative;
-      }
-      .payment-amount-display {
-        background: var(--dark);
-        border-radius: 12px;
-        padding: 20px 24px;
-        text-align: center;
-        margin: 18px 0;
-      }
-      .payment-amount-display .amt-label {
-        font-size: 0.72rem;
-        color: var(--gold);
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        margin-bottom: 6px;
-      }
-      .payment-amount-display .amt-value {
-        font-family: 'Playfair Display', serif;
-        font-size: 2.4rem;
-        color: #fff;
-        font-weight: 700;
-      }
       .payment-input-wrap {
         margin: 16px 0;
       }
@@ -627,7 +596,6 @@
         border: 1.5px solid #ffe082;
         color: #e65100;
       }
-
       @media print {
         body > *:not(#print-area) {
           display: none !important;
@@ -960,21 +928,43 @@
         color: #e65100;
       }
 
-      /* Payment history in order list */
-      .payment-log {
-        margin-top: 6px;
+      /* ── DELETE CONFIRM MODAL ── */
+      .confirm-box {
+        background: #fff;
+        border-radius: 18px;
+        width: 94%;
+        max-width: 360px;
+        padding: 36px 32px 28px;
+        box-shadow: 0 16px 60px rgba(0, 0, 0, 0.3);
+        text-align: center;
       }
-      .payment-log-item {
+      .confirm-icon {
+        width: 62px;
+        height: 62px;
+        background: #fff5f5;
+        border-radius: 50%;
         display: flex;
         align-items: center;
-        gap: 6px;
-        font-size: 0.78rem;
-        color: #27ae60;
-        font-weight: 700;
+        justify-content: center;
+        margin: 0 auto 16px;
+        font-size: 1.8rem;
+        border: 2px solid #f5c6cb;
       }
-      .payment-log-item span.pdate {
-        color: #999;
-        font-weight: 400;
+      .confirm-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.2rem;
+        color: var(--accent);
+        margin-bottom: 8px;
+      }
+      .confirm-desc {
+        color: #888;
+        font-size: 0.88rem;
+        margin-bottom: 24px;
+        line-height: 1.5;
+      }
+      .confirm-btns {
+        display: flex;
+        gap: 12px;
       }
     </style>
   </head>
@@ -1969,15 +1959,49 @@
       </div>
     </div>
 
+    <!-- ✅ DELETE CONFIRM MODAL — replaces browser confirm() -->
+    <div class="modal-overlay" id="confirm-modal">
+      <div class="confirm-box">
+        <div class="confirm-icon">🗑️</div>
+        <div class="confirm-title">Sifarişi silmək istəyirsiniz?</div>
+        <div class="confirm-desc">
+          Bu əməliyyat geri alına bilməz.<br />Sifariş qalıcı olaraq silinəcək.
+        </div>
+        <div class="confirm-btns">
+          <button
+            class="btn btn-outline"
+            style="flex: 1"
+            onclick="cancelDelete()"
+          >
+            İptal
+          </button>
+          <button class="btn btn-red" style="flex: 1" onclick="confirmDelete()">
+            🗑️ Bəli, Sil
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div id="print-area"></div>
 
     <script>
+      function getNextId() {
+        let counter = parseInt(
+          localStorage.getItem('ev_tekstil_id_counter') || '0',
+          10,
+        );
+        counter++;
+        localStorage.setItem('ev_tekstil_id_counter', String(counter));
+        return counter;
+      }
+
       let orders = JSON.parse(
         localStorage.getItem('ev_tekstil_orders') || '[]',
       );
       let currentItems = [];
       let _paymentIdx = null;
       let _printIdx = null;
+      let _deleteIdx = null; // ← для кастомного диалога удаления
 
       document.addEventListener('DOMContentLoaded', () => {
         const t = new Date();
@@ -2153,10 +2177,8 @@
             <td><strong>${i + 1}</strong></td>
             <td><span class="badge badge-${it.type}">${it.label}</span></td>
             <td>${it.artikul || '—'}</td>
-            <td>${it.width} sm</td>
-            <td>${it.height} sm</td>
-            <td>${it.fold || '—'}</td>
-            <td>${it.qty}</td>
+            <td>${it.width} sm</td><td>${it.height} sm</td>
+            <td>${it.fold || '—'}</td><td>${it.qty}</td>
             <td><strong>${parseFloat(it.price).toFixed(2)} ₼</strong></td>
             <td>${it.room ? '<span class="badge badge-room">🏠 ' + it.room + '</span>' : '<span style="color:#ccc">—</span>'}</td>
             <td><span style="font-size:0.78rem;font-weight:700;color:${it.measure === 'Mağaza tərəfindən' ? '#1565c0' : '#e65100'}">${it.measure === 'Mağaza tərəfindən' ? '🏪 Mağaza' : '👤 Müştəri'}</span></td>
@@ -2187,7 +2209,7 @@
         const deposit =
           parseFloat(document.getElementById('deposit').value) || 0;
         const order = {
-          id: orders.length + 1,
+          id: getNextId(),
           date: document.getElementById('order-date').value,
           deliveryDate: document.getElementById('delivery-date').value,
           seller: {
@@ -2227,7 +2249,7 @@
         );
         setTimeout(() => {
           switchTab('orders-list');
-          setTimeout(() => openOrderModal(savedId - 1), 350);
+          setTimeout(() => openOrderModal(orders.length - 1), 350);
         }, 600);
       }
 
@@ -2295,19 +2317,39 @@
         </tbody></table>`;
       }
 
+      /* ── DELETE with custom modal (no confirm()) ── */
+      function deleteOrder(i) {
+        _deleteIdx = i;
+        document.getElementById('confirm-modal').classList.add('open');
+      }
+
+      function confirmDelete() {
+        if (_deleteIdx === null) return;
+        orders.splice(_deleteIdx, 1);
+        _deleteIdx = null;
+        localStorage.setItem('ev_tekstil_orders', JSON.stringify(orders));
+        updateHeaderCount();
+        document.getElementById('confirm-modal').classList.remove('open');
+        renderOrdersList();
+        showNotif('🗑️ Sifariş silindi.');
+      }
+
+      function cancelDelete() {
+        _deleteIdx = null;
+        document.getElementById('confirm-modal').classList.remove('open');
+      }
+
       /* ── PAYMENT MODAL ── */
       function openPaymentModal(idx) {
         const o = orders[idx];
         if (!o) return;
         _paymentIdx = idx;
-
         const totalPaid = (o.payments || []).reduce((s, p) => s + p.amount, 0);
         const realRemaining = Math.max(0, o.totalPrice - totalPaid);
-
         const paymentHistory =
           (o.payments || [])
             .map(
-              (p, pi) =>
+              (p) =>
                 `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dashed #eee;">
             <span style="color:#666;font-size:0.82rem;">${p.date} ${p.note ? '· ' + p.note : ''}</span>
             <span style="color:var(--green);font-weight:700;">+${p.amount.toFixed(2)} ₼</span>
@@ -2315,20 +2357,16 @@
             )
             .join('') ||
           '<div style="color:#ccc;font-size:0.82rem;text-align:center;padding:8px 0;">Ödəniş yoxdur</div>';
-
-        // quick pay buttons
-        const q25 = (realRemaining * 0.25).toFixed(2);
-        const q50 = (realRemaining * 0.5).toFixed(2);
-        const q75 = (realRemaining * 0.75).toFixed(2);
-        const qFull = realRemaining.toFixed(2);
-
+        const q25 = (realRemaining * 0.25).toFixed(2),
+          q50 = (realRemaining * 0.5).toFixed(2);
+        const q75 = (realRemaining * 0.75).toFixed(2),
+          qFull = realRemaining.toFixed(2);
         document.getElementById('payment-modal-body').innerHTML = `
           <div style="text-align:center;margin-bottom:4px;">
             <div style="font-size:0.78rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Müştəri</div>
             <div style="font-size:1.1rem;font-weight:700;">${o.client.name} · ${o.client.phone}</div>
             <div style="font-size:0.82rem;color:#888;">Sifariş #${String(o.id).padStart(4, '0')}</div>
           </div>
-
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0;">
             <div style="background:#1a1a2e;border-radius:10px;padding:12px;text-align:center;">
               <div style="font-size:0.65rem;color:#c9a96e;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px;">Ümumi Məbləğ</div>
@@ -2339,22 +2377,11 @@
               <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#b71c1c;font-weight:700;" id="pm-remaining-display">${realRemaining.toFixed(2)} ₼</div>
             </div>
           </div>
-
-          ${
-            (o.payments || []).length > 0
-              ? `
-          <div style="margin-bottom:14px;">
-            <div style="font-size:0.72rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:6px;">Ödəniş Tarixi:</div>
-            <div style="background:#f9f9f9;border-radius:8px;padding:8px 12px;">${paymentHistory}</div>
-          </div>`
-              : ''
-          }
-
+          ${(o.payments || []).length > 0 ? `<div style="margin-bottom:14px;"><div style="font-size:0.72rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:6px;">Ödəniş Tarixi:</div><div style="background:#f9f9f9;border-radius:8px;padding:8px 12px;">${paymentHistory}</div></div>` : ''}
           <div class="payment-input-wrap">
             <label>İndi Ödənilən Məbləğ (₼)</label>
             <input type="number" id="pm-amount" placeholder="0.00" min="0.01" step="0.01" oninput="calcPaymentResult(${realRemaining})" />
           </div>
-
           <div style="margin-bottom:14px;">
             <div style="font-size:0.72rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:8px;">Sürətli Seçim:</div>
             <div class="payment-quick-btns">
@@ -2364,20 +2391,15 @@
               <div class="payment-quick-btn" onclick="setPayAmount(${qFull})" style="background:#d5e8d4;border-color:#a5d6a7;color:#1b5e20;">Tam<br><strong>${qFull} ₼</strong></div>
             </div>
           </div>
-
           <div class="payment-result" id="pm-result"></div>
-
           <div class="payment-input-wrap" style="margin-top:14px;">
             <label>Qeyd (istəyə görə)</label>
             <input type="text" id="pm-note" placeholder="məs: Nağd, Kart, Bank köçürməsi..." />
           </div>
-
           <div style="display:flex;gap:10px;margin-top:18px;">
             <button class="btn btn-outline" style="flex:1;" onclick="closePaymentModal()">İptal</button>
-            <button class="btn btn-purple" style="flex:2;" onclick="confirmPayment(${idx}, ${realRemaining})">💳 Ödənişi Təsdiq Et</button>
-          </div>
-        `;
-
+            <button class="btn btn-purple" style="flex:2;" onclick="confirmPayment(${idx},${realRemaining})">💳 Ödənişi Təsdiq Et</button>
+          </div>`;
         document.getElementById('payment-modal').classList.add('open');
       }
 
@@ -2385,8 +2407,7 @@
         document.getElementById('pm-amount').value = val;
         const o = orders[_paymentIdx];
         const totalPaid = (o.payments || []).reduce((s, p) => s + p.amount, 0);
-        const realRemaining = Math.max(0, o.totalPrice - totalPaid);
-        calcPaymentResult(realRemaining);
+        calcPaymentResult(Math.max(0, o.totalPrice - totalPaid));
       }
 
       function calcPaymentResult(remaining) {
@@ -2398,16 +2419,14 @@
         }
         el.style.display = 'block';
         if (amt > remaining + 0.001) {
-          const change = (amt - remaining).toFixed(2);
           el.className = 'payment-result overpaid';
-          el.innerHTML = `⚠️ Ödəniş məbləği borcu aşır! <strong>${change} ₼</strong> üstü qaytarılacaq.`;
+          el.innerHTML = `⚠️ Ödəniş məbləği borcu aşır! <strong>${(amt - remaining).toFixed(2)} ₼</strong> üstü qaytarılacaq.`;
         } else if (Math.abs(amt - remaining) < 0.01) {
           el.className = 'payment-result exact';
           el.innerHTML = `✅ Tam ödəniş! Sifariş bağlanacaq.`;
         } else {
-          const newRemaining = (remaining - amt).toFixed(2);
           el.className = 'payment-result partial';
-          el.innerHTML = `📋 Qismən ödəniş. Qalıq borc: <strong>${newRemaining} ₼</strong>`;
+          el.innerHTML = `📋 Qismən ödəniş. Qalıq borc: <strong>${(remaining - amt).toFixed(2)} ₼</strong>`;
         }
       }
 
@@ -2419,49 +2438,34 @@
         }
         const note = document.getElementById('pm-note').value.trim();
         const o = orders[idx];
-        const payAmt = Math.min(amt, remaining); // cap at remaining
+        const payAmt = Math.min(amt, remaining);
         const today = new Date().toISOString().split('T')[0];
-
         if (!o.payments) o.payments = [];
         o.payments.push({
           amount: payAmt,
           date: today,
           note: note || 'Ödəniş',
         });
-
         const totalPaid = o.payments.reduce((s, p) => s + p.amount, 0);
         o.remaining = Math.max(0, o.totalPrice - totalPaid);
-        o.deposit = totalPaid; // keep deposit in sync for print
+        o.deposit = totalPaid;
         o.paidFull = o.remaining <= 0.001;
-
         localStorage.setItem('ev_tekstil_orders', JSON.stringify(orders));
         closePaymentModal();
         renderOrdersList();
-
-        if (o.paidFull) {
+        if (o.paidFull)
           showNotif(
             '🎉 Sifariş tamamilə ödənildi! #' + String(o.id).padStart(4, '0'),
           );
-        } else {
+        else
           showNotif(
             '✅ Ödəniş qeydə alındı! Qalıq: ' + o.remaining.toFixed(2) + ' ₼',
           );
-        }
       }
 
       function closePaymentModal() {
         document.getElementById('payment-modal').classList.remove('open');
         _paymentIdx = null;
-      }
-
-      function deleteOrder(i) {
-        if (!confirm('Bu sifarişi silmək istədiyinizə əminsiniz?')) return;
-        orders.splice(i, 1);
-        orders.forEach((o, idx) => (o.id = idx + 1));
-        localStorage.setItem('ev_tekstil_orders', JSON.stringify(orders));
-        updateHeaderCount();
-        renderOrdersList();
-        showNotif('🗑️ Sifariş silindi.');
       }
 
       function openOrderModal(idx) {
@@ -2470,28 +2474,28 @@
         const totalPaid = (o.payments || []).reduce((s, p) => s + p.amount, 0);
         const realRemaining = Math.max(0, o.totalPrice - totalPaid);
         const isPaid = realRemaining <= 0.001;
-
         const payHistHtml =
           (o.payments || []).length > 0
-            ? `<div style="margin-top:14px;"><div style="font-size:0.72rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:8px;">💳 Ödəniş Tarixi</div>
-              <div style="background:#f9f9f9;border-radius:8px;border:1px solid var(--border);overflow:hidden;">
-                ${o.payments
-                  .map(
-                    (
-                      p,
-                    ) => `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px;border-bottom:1px solid #f0e8d8;font-size:0.85rem;">
-                  <span style="color:#666;">${p.date}${p.note ? ' · ' + p.note : ''}</span>
-                  <span style="color:var(--green);font-weight:700;">+${p.amount.toFixed(2)} ₼</span>
-                </div>`,
-                  )
-                  .join('')}
-                <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:var(--light-gold);font-size:0.85rem;font-weight:700;">
-                  <span>Cəmi ödənildi:</span>
-                  <span style="color:var(--green);">${totalPaid.toFixed(2)} ₼</span>
-                </div>
-              </div></div>`
+            ? `
+          <div style="margin-top:14px;">
+            <div style="font-size:0.72rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:8px;">💳 Ödəniş Tarixi</div>
+            <div style="background:#f9f9f9;border-radius:8px;border:1px solid var(--border);overflow:hidden;">
+              ${o.payments
+                .map(
+                  (
+                    p,
+                  ) => `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px;border-bottom:1px solid #f0e8d8;font-size:0.85rem;">
+                <span style="color:#666;">${p.date}${p.note ? ' · ' + p.note : ''}</span>
+                <span style="color:var(--green);font-weight:700;">+${p.amount.toFixed(2)} ₼</span>
+              </div>`,
+                )
+                .join('')}
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:var(--light-gold);font-size:0.85rem;font-weight:700;">
+                <span>Cəmi ödənildi:</span><span style="color:var(--green);">${totalPaid.toFixed(2)} ₼</span>
+              </div>
+            </div>
+          </div>`
             : '';
-
         document.getElementById('modal-content').innerHTML = `
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
             <div>
@@ -2533,10 +2537,8 @@
                   (it, i) => `<tr>
                 <td><strong>${i + 1}</strong></td>
                 <td><span class="badge badge-${it.type}">${it.label}</span></td>
-                <td>${it.artikul || '—'}</td>
-                <td>${it.width}</td><td>${it.height}</td>
-                <td>${it.fold || '—'}</td>
-                <td>${it.qty}</td>
+                <td>${it.artikul || '—'}</td><td>${it.width}</td><td>${it.height}</td>
+                <td>${it.fold || '—'}</td><td>${it.qty}</td>
                 <td><strong>${parseFloat(it.price).toFixed(2)}</strong></td>
                 <td>${it.room ? '<span class="badge badge-room">🏠 ' + it.room + '</span>' : '—'}</td>
                 <td style="font-size:0.8rem;font-weight:700;color:${it.measure === 'Mağaza tərəfindən' ? '#1565c0' : '#e65100'}">${it.measure || '—'}</td>
@@ -2545,14 +2547,14 @@
                 .join('')}</tbody>
             </table>
           </div>
-          ${o.notes ? '<div style="margin-top:14px;padding:10px 14px;background:var(--light-gold);border-radius:8px;font-size:0.88rem;"><strong>Qeyd:</strong> ' + o.notes + '</div>' : ''}
-        `;
+          ${o.notes ? '<div style="margin-top:14px;padding:10px 14px;background:var(--light-gold);border-radius:8px;font-size:0.88rem;"><strong>Qeyd:</strong> ' + o.notes + '</div>' : ''}`;
         document.getElementById('order-modal').classList.add('open');
       }
 
       function closeModal() {
         document.getElementById('order-modal').classList.remove('open');
       }
+
       document
         .getElementById('order-modal')
         .addEventListener('click', function (e) {
@@ -2568,11 +2570,15 @@
         .addEventListener('click', function (e) {
           if (e.target === this) closePaymentModal();
         });
+      document
+        .getElementById('confirm-modal')
+        .addEventListener('click', function (e) {
+          if (e.target === this) cancelDelete();
+        });
 
-      /* ── GROUP ITEMS BY ROOM for print ── */
       function groupItemsByRoom(items) {
-        const groups = [];
-        const roomMap = {};
+        const groups = [],
+          roomMap = {};
         items.forEach((it) => {
           const key = it.room ? it.room : '__no_room__';
           if (!roomMap[key]) {
@@ -2591,43 +2597,30 @@
         const totalPaid = (o.payments || []).reduce((s, p) => s + p.amount, 0);
         const realRemaining = Math.max(0, o.totalPrice - totalPaid);
         const isPaid = realRemaining <= 0.001;
-
-        let rowsHtml = '';
-        let globalIdx = 0;
+        let rowsHtml = '',
+          globalIdx = 0;
         groups.forEach((g) => {
           if (g.room)
             rowsHtml += `<tr class="print-room-header"><td colspan="8">🏠 ${g.room}</td></tr>`;
           g.items.forEach((it) => {
             globalIdx++;
-            const measureClass =
-              it.measure === 'Mağaza tərəfindən' ? 'shop' : 'client';
-            const measureShort =
+            const mc = it.measure === 'Mağaza tərəfindən' ? 'shop' : 'client';
+            const ms =
               it.measure === 'Mağaza tərəfindən' ? '🏪 Mağaza' : '👤 Müştəri';
-            rowsHtml += `<tr>
-              <td>${globalIdx}</td><td>${it.label}</td><td>${it.artikul || '—'}</td>
+            rowsHtml += `<tr><td>${globalIdx}</td><td>${it.label}</td><td>${it.artikul || '—'}</td>
               <td>${it.width} sm</td><td>${it.height} sm</td><td>${it.fold || '—'}</td>
               <td style="text-align:center;">${it.qty}</td>
-              <td style="text-align:right;">${parseFloat(it.price).toFixed(2)} ₼ <span class="print-measure-badge ${measureClass}">${measureShort}</span></td>
-            </tr>`;
+              <td style="text-align:right;">${parseFloat(it.price).toFixed(2)} ₼ <span class="print-measure-badge ${mc}">${ms}</span></td></tr>`;
           });
         });
-
         const payHistPrint =
           (o.payments || []).length > 0
             ? `<div class="print-payment-history"><strong>💳 Ödəniş Tarixi:</strong> ${o.payments.map((p) => p.date + ' +' + p.amount.toFixed(2) + '₼' + (p.note ? ' (' + p.note + ')' : '')).join(' | ')}</div>`
             : '';
-
         return `
           <div class="print-header">
-            <div>
-              <div class="print-shop-name">EV Tekstil</div>
-              <div class="print-shop-sub">Pərdə &middot; Tül &middot; Günəşlik Parça &middot; Carpayı Örtüyü</div>
-            </div>
-            <div class="print-order-badge">
-              <div class="print-order-label">Sifariş №</div>
-              <div class="print-order-num">${String(o.id).padStart(4, '0')}</div>
-              <div class="print-date-row">Tarix: ${o.date}</div>
-            </div>
+            <div><div class="print-shop-name">EV Tekstil</div><div class="print-shop-sub">Pərdə &middot; Tül &middot; Günəşlik Parça &middot; Carpayı Örtüyü</div></div>
+            <div class="print-order-badge"><div class="print-order-label">Sifariş №</div><div class="print-order-num">${String(o.id).padStart(4, '0')}</div><div class="print-date-row">Tarix: ${o.date}</div></div>
           </div>
           <div class="print-info-bar">
             <div class="print-info-cell"><div class="print-info-label">Satıcı</div><div class="print-info-value">${seller}</div><div style="font-size:7pt;color:#888;margin-top:1px;">${sellerPhone}</div></div>
@@ -2648,23 +2641,10 @@
             <div class="print-total-card ${isPaid ? 'card-paid' : 'card-qaliq'}"><div class="ptc-label">${isPaid ? 'TAM ÖDƏNİLDİ ✅' : 'Qalıq Ödəniş'}</div><div class="ptc-value">${isPaid ? '0.00 ₼' : realRemaining.toFixed(2) + ' ₼'}</div></div>
           </div>
           <div class="print-thin-divider" style="margin-top:10px;"></div>
-          <div class="print-agreement">
-            Mən, aşağıda imza atan şəxs, yuxarıda qeyd edilmiş ölçüləri tam qəbul etdiyimi,
-            bütün məsuliyyəti öz üzərimə götürdüyümü və bu sənədi öz razılığım əsasında imzaladığımı təsdiq edirəm.
-          </div>
+          <div class="print-agreement">Mən, aşağıda imza atan şəxs, yuxarıda qeyd edilmiş ölçüləri tam qəbul etdiyimi, bütün məsuliyyəti öz üzərimə götürdüyümü və bu sənədi öz razılığım əsasında imzaladığımı təsdiq edirəm.</div>
           <div class="print-signatures">
-            <div class="print-sig-box">
-              <div class="print-sig-title">Təhvil Verdi</div>
-              <div class="print-sig-person">${seller} &nbsp;·&nbsp; ${sellerPhone}</div>
-              <div class="print-sig-line"></div>
-              <div class="print-sig-label">Satıcının İmzası</div>
-            </div>
-            <div class="print-sig-box">
-              <div class="print-sig-title">Təhvil Aldı</div>
-              <div class="print-sig-person">${o.client.name} &nbsp;·&nbsp; ${o.client.phone}</div>
-              <div class="print-sig-line"></div>
-              <div class="print-sig-label">Alıcının İmzası</div>
-            </div>
+            <div class="print-sig-box"><div class="print-sig-title">Təhvil Verdi</div><div class="print-sig-person">${seller} &nbsp;·&nbsp; ${sellerPhone}</div><div class="print-sig-line"></div><div class="print-sig-label">Satıcının İmzası</div></div>
+            <div class="print-sig-box"><div class="print-sig-title">Təhvil Aldı</div><div class="print-sig-person">${o.client.name} &nbsp;·&nbsp; ${o.client.phone}</div><div class="print-sig-line"></div><div class="print-sig-label">Alıcının İmzası</div></div>
           </div>
           <div class="print-warning">⚠️ Sifarişlər yalnız sifariş verən müştəriyə təhvil verilir. Başqa şəxslərə sifariş verilmir.</div>`;
       }
