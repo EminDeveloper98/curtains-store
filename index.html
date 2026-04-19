@@ -190,10 +190,14 @@
       .form-grid.four {
         grid-template-columns: 1fr 1fr 1fr 1fr;
       }
+      .form-grid.five {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      }
       @media (max-width: 700px) {
         .form-grid,
         .form-grid.two,
-        .form-grid.four {
+        .form-grid.four,
+        .form-grid.five {
           grid-template-columns: 1fr 1fr;
         }
       }
@@ -436,6 +440,15 @@
         padding: 4px 10px;
         border: 1.5px solid #f48fb1;
       }
+      .badge-seamstress {
+        background: #fce4ec;
+        color: #880e4f;
+        font-size: 0.75rem;
+        padding: 3px 9px;
+        border-radius: 20px;
+        font-weight: 700;
+        border: 1.5px solid #f48fb1;
+      }
       .empty-state {
         text-align: center;
         padding: 60px 20px;
@@ -548,32 +561,6 @@
         box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.15);
         background: #fff;
       }
-      .payment-quick-btns {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-        margin: 12px 0;
-      }
-      .payment-quick-btn {
-        flex: 1;
-        min-width: 80px;
-        padding: 8px 10px;
-        background: var(--light-gold);
-        border: 1.5px solid var(--border);
-        border-radius: 8px;
-        font-family: 'Lato', sans-serif;
-        font-size: 0.82rem;
-        font-weight: 700;
-        color: var(--accent);
-        cursor: pointer;
-        transition: all 0.15s;
-        text-align: center;
-      }
-      .payment-quick-btn:hover {
-        background: var(--gold);
-        border-color: var(--gold);
-        color: #fff;
-      }
       .payment-result {
         border-radius: 8px;
         padding: 12px 16px;
@@ -596,6 +583,59 @@
         border: 1.5px solid #ffe082;
         color: #e65100;
       }
+      .seamstress-highlight {
+        background: #fce4ec;
+        border: 2px solid #f48fb1;
+        border-radius: 10px;
+        padding: 10px 16px;
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .seamstress-highlight .sh-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: #880e4f;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .seamstress-highlight .sh-value {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #880e4f;
+      }
+
+      /* ── COMBO INPUT (datalist style) ── */
+      .combo-wrap {
+        position: relative;
+      }
+      .combo-wrap input[list] {
+        width: 100%;
+        border: 1.5px solid var(--gold);
+        border-radius: 8px;
+        padding: 10px 36px 10px 13px;
+        font-family: 'Lato', sans-serif;
+        font-size: 0.95rem;
+        color: var(--text);
+        background: var(--cream);
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+        outline: none;
+      }
+      .combo-wrap input[list]:focus {
+        border-color: var(--gold);
+        box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.15);
+        background: #fff;
+      }
+      .combo-hint {
+        font-size: 0.72rem;
+        color: #999;
+        margin-top: 4px;
+        font-style: italic;
+      }
+
       @media print {
         body > *:not(#print-area) {
           display: none !important;
@@ -708,6 +748,28 @@
         font-size: 9pt;
         font-weight: 700;
         color: #1a1a2e;
+      }
+      .print-seamstress-bar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #fce4ec;
+        border: 1.5px solid #f48fb1;
+        border-radius: 6px;
+        padding: 5px 12px;
+        margin-bottom: 8px;
+      }
+      .print-seamstress-label {
+        font-size: 6.5pt;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #880e4f;
+        font-weight: 700;
+      }
+      .print-seamstress-value {
+        font-size: 9.5pt;
+        font-weight: 700;
+        color: #880e4f;
       }
       .print-section-title {
         font-size: 6.5pt;
@@ -927,8 +989,6 @@
         background: #fff8e1;
         color: #e65100;
       }
-
-      /* ── DELETE CONFIRM MODAL ── */
       .confirm-box {
         background: #fff;
         border-radius: 18px;
@@ -997,7 +1057,6 @@
       </button>
     </div>
 
-    <!-- YENİ SİFARİŞ -->
     <div class="main" id="tab-new-order">
       <div class="section-title">🏪 Satıcı Məlumatları</div>
       <div
@@ -1006,12 +1065,12 @@
       >
         <div class="form-grid two">
           <div class="form-group">
-            <label>Satıcının Adı</label
-            ><input type="text" id="seller-name" value="Sehla" />
+            <label>Satıcının Adı</label>
+            <input type="text" id="seller-name" value="Sehla" />
           </div>
           <div class="form-group">
-            <label>Satıcının Telefonu</label
-            ><input type="tel" id="seller-phone" value="051 316 5598" />
+            <label>Satıcının Telefonu</label>
+            <input type="tel" id="seller-phone" value="051 316 5598" />
           </div>
         </div>
       </div>
@@ -1020,34 +1079,35 @@
       <div class="card">
         <div class="form-grid four">
           <div class="form-group">
-            <label>Müştəri Adı Soyadı *</label
-            ><input type="text" id="client-name" placeholder="Ad Soyad" />
+            <label>Müştəri Adı Soyadı *</label>
+            <input type="text" id="client-name" placeholder="Ad Soyad" />
           </div>
           <div class="form-group">
-            <label>Telefon *</label
-            ><input
+            <label>Telefon *</label>
+            <input
               type="tel"
               id="client-phone"
               placeholder="+994 XX XXX XX XX"
             />
           </div>
           <div class="form-group">
-            <label>Ünvan</label
-            ><input
+            <label>Ünvan</label>
+            <input
               type="text"
               id="client-address"
               placeholder="Küçə, ev nömrəsi..."
             />
           </div>
           <div class="form-group">
-            <label>Sifariş Tarixi</label><input type="date" id="order-date" />
+            <label>Sifariş Tarixi</label>
+            <input type="date" id="order-date" />
           </div>
         </div>
         <hr class="gold" style="margin: 14px 0" />
-        <div class="form-grid four">
+        <div class="form-grid five">
           <div class="form-group">
-            <label>Ümumi Məbləğ (₼)</label
-            ><input
+            <label>Ümumi Məbləğ (₼)</label>
+            <input
               type="number"
               id="total-price"
               placeholder="0.00"
@@ -1057,8 +1117,8 @@
             />
           </div>
           <div class="form-group">
-            <label>Beh (₼)</label
-            ><input
+            <label>Beh (₼)</label>
+            <input
               type="number"
               id="deposit"
               placeholder="0.00"
@@ -1068,8 +1128,8 @@
             />
           </div>
           <div class="form-group">
-            <label>Qalıq (₼)</label
-            ><input
+            <label>Qalıq (₼)</label>
+            <input
               type="number"
               id="remaining"
               placeholder="0.00"
@@ -1078,14 +1138,23 @@
             />
           </div>
           <div class="form-group">
-            <label>Sifarişin Hazır Olma Tarixi</label
-            ><input type="date" id="delivery-date" />
+            <label>Hazır Olma Tarixi</label>
+            <input type="date" id="delivery-date" />
+          </div>
+          <div class="form-group">
+            <label>✂️ Dərzi</label>
+            <input
+              type="text"
+              id="seamstress-name"
+              placeholder="Dərzinin adı..."
+              style="border-color: #f48fb1; background: #fff5f8"
+            />
           </div>
         </div>
         <hr class="gold" style="margin: 14px 0 12px" />
         <div class="form-group">
-          <label>Qeyd / Əlavə Məlumat</label
-          ><textarea
+          <label>Qeyd / Əlavə Məlumat</label>
+          <textarea
             id="order-notes"
             placeholder="Xüsusi istəklər, rəng seçimi, qeydlər..."
           ></textarea>
@@ -1422,18 +1491,18 @@
                   ><input
                     type="radio"
                     name="p-measure"
-                    value="Mağaza tərəfindən"
+                    value="Müştəri tərəfindən"
                     checked
                   />
-                  🏪 Mağaza</label
+                  👤 Müştəri</label
                 >
                 <label class="measure-opt"
                   ><input
                     type="radio"
                     name="p-measure"
-                    value="Müştəri tərəfindən"
+                    value="Mağaza tərəfindən"
                   />
-                  👤 Müştəri</label
+                  🏪 Mağaza</label
                 >
               </div>
             </div>
@@ -1552,18 +1621,18 @@
                   ><input
                     type="radio"
                     name="t-measure"
-                    value="Mağaza tərəfindən"
+                    value="Müştəri tərəfindən"
                     checked
                   />
-                  🏪 Mağaza</label
+                  👤 Müştəri</label
                 >
                 <label class="measure-opt"
                   ><input
                     type="radio"
                     name="t-measure"
-                    value="Müştəri tərəfindən"
+                    value="Mağaza tərəfindən"
                   />
-                  👤 Müştəri</label
+                  🏪 Mağaza</label
                 >
               </div>
             </div>
@@ -1610,10 +1679,33 @@
             </div>
           </div>
           <div class="form-grid two" style="margin-top: 13px">
+            <!-- ══ COMBO FIELD — seçim + əl ilə yazma ══ -->
             <div class="form-group">
-              <label>Artikul / Kodu</label
-              ><input type="text" id="s-artikul" placeholder="məs: SOL-001" />
+              <label>Növ / Artikul *</label>
+              <div class="combo-wrap">
+                <input
+                  type="text"
+                  id="s-artikul"
+                  list="s-artikul-list"
+                  placeholder="Seçin və ya öz mətnini yazın..."
+                  autocomplete="off"
+                  style="border-color: var(--gold)"
+                />
+                <datalist id="s-artikul-list">
+                  <option value="Günkeçməz 2.20 Ağ"></option>
+                  <option value="Günkeçməz 2.20 Krem"></option>
+                  <option value="Günkeçməz 2.80 Ağ"></option>
+                  <option value="Günkeçməz 2.80 Krem"></option>
+                  <option value="Günkeçməz 3.20 Ağ"></option>
+                  <option value="Günkeçməz 3.20 Krem"></option>
+                </datalist>
+              </div>
+              <div class="combo-hint">
+                Siyahıdan seçin və ya istənilən mətni yazın
+              </div>
             </div>
+            <!-- ══════════════════════════════════════════ -->
+
             <div class="form-group">
               <label>Qiymət (₼)</label
               ><input
@@ -1625,10 +1717,7 @@
               />
             </div>
           </div>
-          <div class="form-group" style="margin-top: 13px">
-            <label>Xüsusi Qeyd</label
-            ><input type="text" id="s-note" placeholder="Rəng, xüsusiyyət..." />
-          </div>
+          <input type="hidden" id="s-note" value="" />
           <div class="room-measure-row">
             <div class="form-group">
               <label>🏠 Otaq / Yer</label
@@ -1645,18 +1734,18 @@
                   ><input
                     type="radio"
                     name="s-measure"
-                    value="Mağaza tərəfindən"
+                    value="Müştəri tərəfindən"
                     checked
                   />
-                  🏪 Mağaza</label
+                  👤 Müştəri</label
                 >
                 <label class="measure-opt"
                   ><input
                     type="radio"
                     name="s-measure"
-                    value="Müştəri tərəfindən"
+                    value="Mağaza tərəfindən"
                   />
-                  👤 Müştəri</label
+                  🏪 Mağaza</label
                 >
               </div>
             </div>
@@ -1734,18 +1823,18 @@
                   ><input
                     type="radio"
                     name="ov-measure"
-                    value="Mağaza tərəfindən"
+                    value="Müştəri tərəfindən"
                     checked
                   />
-                  🏪 Mağaza</label
+                  👤 Müştəri</label
                 >
                 <label class="measure-opt"
                   ><input
                     type="radio"
                     name="ov-measure"
-                    value="Müştəri tərəfindən"
+                    value="Mağaza tərəfindən"
                   />
-                  👤 Müştəri</label
+                  🏪 Mağaza</label
                 >
               </div>
             </div>
@@ -1959,7 +2048,7 @@
       </div>
     </div>
 
-    <!-- ✅ DELETE CONFIRM MODAL — replaces browser confirm() -->
+    <!-- DELETE CONFIRM MODAL -->
     <div class="modal-overlay" id="confirm-modal">
       <div class="confirm-box">
         <div class="confirm-icon">🗑️</div>
@@ -2001,7 +2090,7 @@
       let currentItems = [];
       let _paymentIdx = null;
       let _printIdx = null;
-      let _deleteIdx = null; // ← для кастомного диалога удаления
+      let _deleteIdx = null;
 
       document.addEventListener('DOMContentLoaded', () => {
         const t = new Date();
@@ -2129,6 +2218,13 @@
           showNotif('⚠️ En və Hündürlük mütləq daxil edilməlidir!');
           return;
         }
+        if (
+          type === 'solar' &&
+          !document.getElementById('s-artikul').value.trim()
+        ) {
+          showNotif('⚠️ Günəşlik növünü seçin və ya yazın!');
+          return;
+        }
         const item = {
           type,
           label: m.label,
@@ -2161,7 +2257,7 @@
         }
         if (type === 'solar') document.getElementById('s-note').value = '';
         const firstRadio = document.querySelector(
-          'input[name="' + m.m + '"][value="Mağaza tərəfindən"]',
+          'input[name="' + m.m + '"][value="Müştəri tərəfindən"]',
         );
         if (firstRadio) firstRadio.checked = true;
         showNotif('✅ Məhsul əlavə edildi!');
@@ -2208,6 +2304,9 @@
           parseFloat(document.getElementById('total-price').value) || 0;
         const deposit =
           parseFloat(document.getElementById('deposit').value) || 0;
+        const seamstress = document
+          .getElementById('seamstress-name')
+          .value.trim();
         const order = {
           id: getNextId(),
           date: document.getElementById('order-date').value,
@@ -2222,6 +2321,7 @@
             phone,
             address: document.getElementById('client-address').value,
           },
+          seamstress: seamstress,
           items: JSON.parse(JSON.stringify(currentItems)),
           totalPrice,
           deposit,
@@ -2263,6 +2363,7 @@
           'deposit',
           'remaining',
           'order-notes',
+          'seamstress-name',
         ].forEach((id) => (document.getElementById(id).value = ''));
         document.getElementById('order-date').value = new Date()
           .toISOString()
@@ -2284,7 +2385,11 @@
           el.innerHTML = `<div class="empty-state"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="8" width="48" height="48" rx="6" stroke="currentColor" stroke-width="3"/><line x1="20" y1="28" x2="44" y2="28" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><line x1="20" y1="36" x2="36" y2="36" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg><p>Hələ heç bir sifariş yoxdur</p></div>`;
           return;
         }
-        el.innerHTML = `<table class="orders-table"><thead><tr><th>#</th><th>Tarix</th><th>Müştəri</th><th>Telefon</th><th>Məhsullar</th><th>Cəmi ₼</th><th>Ödənildi ₼</th><th>Qalıq ₼</th><th>Status</th><th>Hazır Tarixi</th><th>Əməliyyat</th></tr></thead><tbody>
+        el.innerHTML = `<table class="orders-table"><thead><tr>
+          <th>#</th><th>Tarix</th><th>Müştəri</th><th>Telefon</th><th>Məhsullar</th>
+          <th>✂️ Dərzi</th><th>Cəmi ₼</th><th>Ödənildi ₼</th><th>Qalıq ₼</th>
+          <th>Status</th><th>Hazır Tarixi</th><th>Əməliyyat</th>
+        </tr></thead><tbody>
         ${orders
           .map((o, i) => {
             const totalPaid = (o.payments || []).reduce(
@@ -2299,6 +2404,7 @@
             <td><strong>${o.client.name}</strong>${o.client.address ? '<br><small style="color:#999;">' + o.client.address + '</small>' : ''}</td>
             <td>${o.client.phone}</td>
             <td>${o.items.map((it) => '<span class="badge badge-' + it.type + '">' + it.label + '</span>').join(' ')}</td>
+            <td>${o.seamstress ? '<span class="badge-seamstress">✂️ ' + o.seamstress + '</span>' : '<span style="color:#ccc;">—</span>'}</td>
             <td><strong>${o.totalPrice.toFixed(2)} ₼</strong></td>
             <td style="color:var(--green);font-weight:700;">${totalPaid.toFixed(2)} ₼</td>
             <td style="color:${isPaid ? 'var(--green)' : 'var(--red)'};font-weight:700;">${isPaid ? '0.00' : realRemaining.toFixed(2)} ₼</td>
@@ -2317,12 +2423,10 @@
         </tbody></table>`;
       }
 
-      /* ── DELETE with custom modal (no confirm()) ── */
       function deleteOrder(i) {
         _deleteIdx = i;
         document.getElementById('confirm-modal').classList.add('open');
       }
-
       function confirmDelete() {
         if (_deleteIdx === null) return;
         orders.splice(_deleteIdx, 1);
@@ -2333,13 +2437,11 @@
         renderOrdersList();
         showNotif('🗑️ Sifariş silindi.');
       }
-
       function cancelDelete() {
         _deleteIdx = null;
         document.getElementById('confirm-modal').classList.remove('open');
       }
 
-      /* ── PAYMENT MODAL ── */
       function openPaymentModal(idx) {
         const o = orders[idx];
         if (!o) return;
@@ -2357,39 +2459,30 @@
             )
             .join('') ||
           '<div style="color:#ccc;font-size:0.82rem;text-align:center;padding:8px 0;">Ödəniş yoxdur</div>';
-        const q25 = (realRemaining * 0.25).toFixed(2),
-          q50 = (realRemaining * 0.5).toFixed(2);
-        const q75 = (realRemaining * 0.75).toFixed(2),
-          qFull = realRemaining.toFixed(2);
+        const seamstressHtml = o.seamstress
+          ? `<div class="seamstress-highlight"><span style="font-size:1.3rem;">✂️</span><div><div class="sh-label">Dərzi</div><div class="sh-value">${o.seamstress}</div></div></div>`
+          : '';
         document.getElementById('payment-modal-body').innerHTML = `
-          <div style="text-align:center;margin-bottom:4px;">
+          <div style="text-align:center;margin-bottom:14px;">
             <div style="font-size:0.78rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Müştəri</div>
             <div style="font-size:1.1rem;font-weight:700;">${o.client.name} · ${o.client.phone}</div>
             <div style="font-size:0.82rem;color:#888;">Sifariş #${String(o.id).padStart(4, '0')}</div>
           </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0;">
+          ${seamstressHtml}
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 14px;">
             <div style="background:#1a1a2e;border-radius:10px;padding:12px;text-align:center;">
               <div style="font-size:0.65rem;color:#c9a96e;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px;">Ümumi Məbləğ</div>
               <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;font-weight:700;">${o.totalPrice.toFixed(2)} ₼</div>
             </div>
             <div style="background:#fce4ec;border:1.5px solid #f48fb1;border-radius:10px;padding:12px;text-align:center;">
               <div style="font-size:0.65rem;color:#c62828;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px;">Qalıq Borc</div>
-              <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#b71c1c;font-weight:700;" id="pm-remaining-display">${realRemaining.toFixed(2)} ₼</div>
+              <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#b71c1c;font-weight:700;">${realRemaining.toFixed(2)} ₼</div>
             </div>
           </div>
           ${(o.payments || []).length > 0 ? `<div style="margin-bottom:14px;"><div style="font-size:0.72rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:6px;">Ödəniş Tarixi:</div><div style="background:#f9f9f9;border-radius:8px;padding:8px 12px;">${paymentHistory}</div></div>` : ''}
           <div class="payment-input-wrap">
             <label>İndi Ödənilən Məbləğ (₼)</label>
-            <input type="number" id="pm-amount" placeholder="0.00" min="0.01" step="0.01" oninput="calcPaymentResult(${realRemaining})" />
-          </div>
-          <div style="margin-bottom:14px;">
-            <div style="font-size:0.72rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:8px;">Sürətli Seçim:</div>
-            <div class="payment-quick-btns">
-              <div class="payment-quick-btn" onclick="setPayAmount(${q25})">25%<br><strong>${q25} ₼</strong></div>
-              <div class="payment-quick-btn" onclick="setPayAmount(${q50})">50%<br><strong>${q50} ₼</strong></div>
-              <div class="payment-quick-btn" onclick="setPayAmount(${q75})">75%<br><strong>${q75} ₼</strong></div>
-              <div class="payment-quick-btn" onclick="setPayAmount(${qFull})" style="background:#d5e8d4;border-color:#a5d6a7;color:#1b5e20;">Tam<br><strong>${qFull} ₼</strong></div>
-            </div>
+            <input type="number" id="pm-amount" placeholder="Məbləği daxil edin..." min="0.01" step="0.01" oninput="calcPaymentResult(${realRemaining})" />
           </div>
           <div class="payment-result" id="pm-result"></div>
           <div class="payment-input-wrap" style="margin-top:14px;">
@@ -2401,13 +2494,6 @@
             <button class="btn btn-purple" style="flex:2;" onclick="confirmPayment(${idx},${realRemaining})">💳 Ödənişi Təsdiq Et</button>
           </div>`;
         document.getElementById('payment-modal').classList.add('open');
-      }
-
-      function setPayAmount(val) {
-        document.getElementById('pm-amount').value = val;
-        const o = orders[_paymentIdx];
-        const totalPaid = (o.payments || []).reduce((s, p) => s + p.amount, 0);
-        calcPaymentResult(Math.max(0, o.totalPrice - totalPaid));
       }
 
       function calcPaymentResult(remaining) {
@@ -2496,6 +2582,15 @@
             </div>
           </div>`
             : '';
+        const seamstressHtml = o.seamstress
+          ? `<div style="margin-top:10px;background:#fce4ec;border:1.5px solid #f48fb1;border-radius:8px;padding:10px 15px;display:flex;align-items:center;gap:10px;">
+              <span style="font-size:1.3rem;">✂️</span>
+              <div>
+                <div style="font-size:0.72rem;font-weight:700;color:#880e4f;text-transform:uppercase;letter-spacing:0.7px;">Dərzi</div>
+                <div style="font-weight:700;font-size:1rem;color:#880e4f;">${o.seamstress}</div>
+              </div>
+            </div>`
+          : '';
         document.getElementById('modal-content').innerHTML = `
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
             <div>
@@ -2510,7 +2605,8 @@
             </div>
           </div>
           <hr class="gold">
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:18px;">
+          ${seamstressHtml}
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:14px 0 18px;">
             <div style="background:var(--light-gold);border-radius:8px;padding:12px 15px;">
               <div style="font-size:0.72rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:4px;">Müştəri</div>
               <div style="font-weight:700;font-size:1rem;">${o.client.name}</div>
@@ -2617,6 +2713,9 @@
           (o.payments || []).length > 0
             ? `<div class="print-payment-history"><strong>💳 Ödəniş Tarixi:</strong> ${o.payments.map((p) => p.date + ' +' + p.amount.toFixed(2) + '₼' + (p.note ? ' (' + p.note + ')' : '')).join(' | ')}</div>`
             : '';
+        const seamstressPrintHtml = o.seamstress
+          ? `<div class="print-seamstress-bar"><span class="print-seamstress-label">✂️ Dərzi:</span><span class="print-seamstress-value">${o.seamstress}</span></div>`
+          : '';
         return `
           <div class="print-header">
             <div><div class="print-shop-name">EV Tekstil</div><div class="print-shop-sub">Pərdə &middot; Tül &middot; Günəşlik Parça &middot; Carpayı Örtüyü</div></div>
@@ -2628,6 +2727,7 @@
             <div class="print-info-cell"><div class="print-info-label">Ünvan</div><div class="print-info-value" style="font-size:8.5pt;">${o.client.address || '—'}</div></div>
             <div class="print-info-cell" style="border-right:none;"><div class="print-info-label">Hazır Olma Tarixi</div><div class="print-info-value" style="font-size:8.5pt;">${o.deliveryDate || '—'}</div></div>
           </div>
+          ${seamstressPrintHtml}
           <div class="print-section-title">Sifariş Məhsulları (Otaq üzrə)</div>
           <table class="print-table">
             <thead><tr><th style="width:24px;">#</th><th>Növ</th><th>Artikul</th><th>En</th><th>Hünd.</th><th>Yığım</th><th style="text-align:center;">Əd.</th><th style="text-align:right;">Qiymət / Ölçü</th></tr></thead>
@@ -2691,6 +2791,9 @@ body{font-family:'Lato',Arial,sans-serif;background:#fff;margin:0;padding:0;}
 .print-info-cell:last-child{border-right:none;}
 .print-info-label{font-size:6.5pt;text-transform:uppercase;letter-spacing:1px;color:#8B5E3C;font-weight:700;margin-bottom:2px;}
 .print-info-value{font-size:9pt;font-weight:700;color:#1a1a2e;}
+.print-seamstress-bar{display:flex;align-items:center;gap:10px;background:#fce4ec;border:1.5px solid #f48fb1;border-radius:6px;padding:5px 12px;margin-bottom:8px;}
+.print-seamstress-label{font-size:6.5pt;text-transform:uppercase;letter-spacing:1px;color:#880e4f;font-weight:700;}
+.print-seamstress-value{font-size:9.5pt;font-weight:700;color:#880e4f;}
 .print-section-title{font-size:6.5pt;text-transform:uppercase;letter-spacing:1.5px;color:#8B5E3C;font-weight:700;margin:7px 0 4px;padding-bottom:3px;border-bottom:1px solid #e8dcc8;}
 .print-table{width:100%;border-collapse:collapse;font-size:8.5pt;margin-top:3px;}
 .print-table th{background:#1a1a2e;color:#C9A96E;padding:5px 8px;text-align:left;font-size:7pt;text-transform:uppercase;letter-spacing:0.5px;font-weight:700;}
