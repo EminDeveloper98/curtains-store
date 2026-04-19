@@ -200,6 +200,26 @@
         .form-grid.five {
           grid-template-columns: 1fr 1fr;
         }
+        header {
+          padding: 12px 16px;
+        }
+        header h1 {
+          font-size: 1.3rem;
+        }
+        .tabs {
+          padding: 0 8px;
+        }
+        .tab-btn {
+          padding: 12px 14px;
+          font-size: 0.78rem;
+        }
+        .main {
+          margin: 16px auto;
+          padding: 0 12px;
+        }
+        .card {
+          padding: 16px 14px;
+        }
       }
       .form-group {
         display: flex;
@@ -528,85 +548,419 @@
       .modal-close:hover {
         color: var(--red);
       }
-      .payment-input-wrap {
-        margin: 16px 0;
-      }
-      .payment-input-wrap label {
-        font-size: 0.78rem;
-        font-weight: 700;
-        color: var(--accent);
-        text-transform: uppercase;
-        letter-spacing: 0.7px;
-        display: block;
-        margin-bottom: 6px;
-      }
-      .payment-input-wrap input {
-        width: 100%;
-        border: 2px solid var(--border);
-        border-radius: 10px;
-        padding: 14px 16px;
-        font-family: 'Lato', sans-serif;
-        font-size: 1.3rem;
-        font-weight: 700;
-        color: var(--text);
-        background: var(--cream);
-        outline: none;
-        text-align: center;
-        transition:
-          border-color 0.2s,
-          box-shadow 0.2s;
-      }
-      .payment-input-wrap input:focus {
-        border-color: var(--gold);
-        box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.15);
+
+      /* ── НОВЫЙ ПЛАТЁЖНЫЙ МОДАЛ ── */
+      .pm-modal {
         background: #fff;
+        border-radius: 16px;
+        width: 94%;
+        max-width: 480px;
+        overflow: hidden;
+        box-shadow: 0 16px 60px rgba(0, 0, 0, 0.3);
       }
-      .payment-result {
-        border-radius: 8px;
-        padding: 12px 16px;
-        margin-top: 12px;
-        font-size: 0.88rem;
-        display: none;
+      .pm-head {
+        background: var(--dark);
+        padding: 18px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
       }
-      .payment-result.overpaid {
-        background: #fff3cd;
-        border: 1.5px solid #ffc107;
-        color: #856404;
-      }
-      .payment-result.exact {
-        background: #d5e8d4;
-        border: 1.5px solid #a5d6a7;
-        color: #1b5e20;
-      }
-      .payment-result.partial {
-        background: #fff8e1;
-        border: 1.5px solid #ffe082;
-        color: #e65100;
-      }
-      .seamstress-highlight {
-        background: #fce4ec;
-        border: 2px solid #f48fb1;
-        border-radius: 10px;
-        padding: 10px 16px;
-        margin-bottom: 14px;
+      .pm-head-left {
         display: flex;
         align-items: center;
         gap: 10px;
       }
-      .seamstress-highlight .sh-label {
+      .pm-head-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: rgba(201, 169, 110, 0.18);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+      }
+      .pm-head-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--gold);
+      }
+      .pm-head-sub {
         font-size: 0.72rem;
+        color: #666;
+        margin-top: 2px;
+      }
+      .pm-close-btn {
+        background: rgba(255, 255, 255, 0.07);
+        border: none;
+        border-radius: 6px;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #666;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .pm-close-btn:hover {
+        background: rgba(255, 255, 255, 0.14);
+        color: #fff;
+      }
+      .pm-body {
+        padding: 20px 24px 24px;
+      }
+      .pm-client-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+        padding: 11px 14px;
+        background: var(--cream);
+        border: 1.5px solid var(--border);
+        border-radius: 10px;
+      }
+      .pm-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: var(--dark);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--gold);
+        flex-shrink: 0;
+        font-family: 'Lato', sans-serif;
+      }
+      .pm-client-name {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .pm-client-meta {
+        font-size: 0.75rem;
+        color: #888;
+        margin-top: 1px;
+      }
+      .pm-order-badge {
+        margin-left: auto;
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: var(--gold);
+        background: rgba(201, 169, 110, 0.12);
+        border: 1px solid rgba(201, 169, 110, 0.35);
+        padding: 3px 10px;
+        border-radius: 20px;
+        white-space: nowrap;
+      }
+      .pm-seamstress {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 13px;
+        background: #fce4ec;
+        border: 1.5px solid #f48fb1;
+        border-radius: 8px;
+        margin-bottom: 14px;
+      }
+      .pm-seamstress-lbl {
+        font-size: 0.65rem;
         font-weight: 700;
         color: #880e4f;
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 0.7px;
       }
-      .seamstress-highlight .sh-value {
-        font-size: 1rem;
+      .pm-seamstress-val {
+        font-size: 0.88rem;
         font-weight: 700;
         color: #880e4f;
       }
+      .pm-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+      .pm-stat {
+        padding: 10px 12px;
+        border-radius: 8px;
+        background: var(--cream);
+        border: 1.5px solid var(--border);
+        text-align: center;
+      }
+      .pm-stat-lbl {
+        font-size: 0.62rem;
+        font-weight: 700;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        margin-bottom: 4px;
+      }
+      .pm-stat-val {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--text);
+        font-family: 'Playfair Display', serif;
+      }
+      .pm-stat.s-paid .pm-stat-val {
+        color: var(--green);
+      }
+      .pm-stat.s-debt .pm-stat-lbl {
+        color: var(--red);
+      }
+      .pm-stat.s-debt .pm-stat-val {
+        color: var(--red);
+      }
+      .pm-hist-wrap {
+        margin-bottom: 16px;
+      }
+      .pm-hist-title {
+        font-size: 0.65rem;
+        font-weight: 700;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        margin-bottom: 7px;
+      }
+      .pm-hist-list {
+        border: 1.5px solid var(--border);
+        border-radius: 8px;
+        overflow: hidden;
+        background: #fff;
+      }
+      .pm-hist-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-bottom: 1px solid #f0e8d8;
+      }
+      .pm-hist-row:last-child {
+        border-bottom: none;
+      }
+      .pm-hist-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--green);
+        flex-shrink: 0;
+      }
+      .pm-hist-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .pm-hist-note {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--text);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .pm-hist-date {
+        font-size: 0.7rem;
+        color: #999;
+      }
+      .pm-hist-amt {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--green);
+        white-space: nowrap;
+      }
+      .pm-input-label {
+        font-size: 0.65rem;
+        font-weight: 700;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        margin-bottom: 7px;
+        display: block;
+      }
+      .pm-amount-wrap {
+        position: relative;
+        margin-bottom: 12px;
+      }
+      .pm-currency-sign {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--accent);
+        pointer-events: none;
+        font-family: 'Playfair Display', serif;
+      }
+      .pm-amount-input {
+        width: 100%;
+        height: 58px;
+        border: 2px solid var(--border);
+        border-radius: 10px;
+        background: var(--cream);
+        padding: 0 14px 0 38px;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text);
+        outline: none;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+        font-family: 'Playfair Display', serif;
+        -moz-appearance: textfield;
+        appearance: textfield;
+      }
+      .pm-amount-input::-webkit-inner-spin-button,
+      .pm-amount-input::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+      }
+      .pm-amount-input:focus {
+        border-color: var(--gold);
+        box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.15);
+        background: #fff;
+      }
+      .pm-amount-input::placeholder {
+        color: #ccc;
+      }
+      .pm-full-btn {
+        width: 100%;
+        border: 1.5px solid rgba(201, 169, 110, 0.5);
+        background: var(--light-gold);
+        border-radius: 8px;
+        padding: 9px 14px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--accent);
+        cursor: pointer;
+        transition: all 0.15s;
+        text-align: center;
+        margin-bottom: 14px;
+        font-family: 'Lato', sans-serif;
+        letter-spacing: 0.3px;
+      }
+      .pm-full-btn:hover {
+        background: var(--gold);
+        color: #fff;
+        border-color: var(--gold);
+      }
+      .pm-feedback {
+        border-radius: 8px;
+        padding: 10px 14px;
+        font-size: 0.82rem;
+        margin-bottom: 14px;
+        display: none;
+        font-family: 'Lato', sans-serif;
+      }
+      .pm-feedback.overpaid {
+        background: #fff3cd;
+        border: 1.5px solid #ffc107;
+        color: #856404;
+      }
+      .pm-feedback.exact {
+        background: #d5e8d4;
+        border: 1.5px solid #a5d6a7;
+        color: #1b5e20;
+      }
+      .pm-feedback.partial {
+        background: #fff8e1;
+        border: 1.5px solid #ffe082;
+        color: #e65100;
+      }
+      .pm-note-input {
+        width: 100%;
+        border: 1.5px solid var(--border);
+        border-radius: 8px;
+        background: var(--cream);
+        padding: 10px 13px;
+        font-size: 0.92rem;
+        color: var(--text);
+        outline: none;
+        transition: border-color 0.2s;
+        font-family: 'Lato', sans-serif;
+        margin-bottom: 18px;
+      }
+      .pm-note-input:focus {
+        border-color: var(--gold);
+        box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.15);
+        background: #fff;
+      }
+      .pm-note-input::placeholder {
+        color: #bbb;
+      }
+      .pm-actions {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 10px;
+      }
+      .pm-success {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 36px 24px;
+        text-align: center;
+      }
+      .pm-success-circle {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: #d5e8d4;
+        border: 2px solid #a5d6a7;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+        font-size: 2rem;
+      }
+      .pm-success-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.3rem;
+        color: var(--accent);
+        margin-bottom: 6px;
+      }
+      .pm-success-sub {
+        font-size: 0.88rem;
+        color: #888;
+        line-height: 1.6;
+        margin-bottom: 18px;
+        max-width: 280px;
+      }
+      .pm-success-pill {
+        border-radius: 20px;
+        padding: 7px 20px;
+        font-size: 0.82rem;
+        font-weight: 700;
+      }
+      .pm-success-pill.full {
+        background: #d5e8d4;
+        border: 1.5px solid #a5d6a7;
+        color: #1b5e20;
+      }
+      .pm-success-pill.partial {
+        background: #fff8e1;
+        border: 1.5px solid #ffe082;
+        color: #e65100;
+      }
+      .pm-success-close-btn {
+        margin-top: 20px;
+        border: 2px solid var(--gold);
+        background: #fff;
+        border-radius: 8px;
+        padding: 10px 28px;
+        font-size: 0.88rem;
+        font-weight: 700;
+        color: var(--accent);
+        cursor: pointer;
+        font-family: 'Lato', sans-serif;
+      }
+      .pm-success-close-btn:hover {
+        background: var(--light-gold);
+      }
+      /* ── КОНЕЦ ПЛАТЁЖНОГО МОДАЛА ── */
 
-      /* ── COMBO INPUT (datalist style) ── */
       .combo-wrap {
         position: relative;
       }
@@ -1679,7 +2033,6 @@
             </div>
           </div>
           <div class="form-grid two" style="margin-top: 13px">
-            <!-- ══ COMBO FIELD — seçim + əl ilə yazma ══ -->
             <div class="form-group">
               <label>Növ / Artikul *</label>
               <div class="combo-wrap">
@@ -1704,8 +2057,6 @@
                 Siyahıdan seçin və ya istənilən mətni yazın
               </div>
             </div>
-            <!-- ══════════════════════════════════════════ -->
-
             <div class="form-group">
               <label>Qiymət (₼)</label
               ><input
@@ -1920,53 +2271,129 @@
       </div>
     </div>
 
-    <!-- PAYMENT MODAL -->
+    <!-- PAYMENT MODAL (YENİ) -->
     <div class="modal-overlay" id="payment-modal">
-      <div
-        class="modal"
-        style="
-          max-width: 480px;
-          padding: 0;
-          border-radius: 16px;
-          overflow: hidden;
-        "
-      >
-        <div
-          style="
-            background: var(--dark);
-            padding: 18px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-          "
-        >
-          <div style="display: flex; align-items: center; gap: 10px">
-            <span style="font-size: 1.4rem">💳</span>
-            <span
-              style="
-                color: var(--gold);
-                font-family: 'Playfair Display', serif;
-                font-size: 1.1rem;
-                font-weight: 700;
-              "
-              >Qalığı Ödə</span
-            >
+      <div class="pm-modal">
+        <div class="pm-head">
+          <div class="pm-head-left">
+            <div class="pm-head-icon">💳</div>
+            <div>
+              <div class="pm-head-title">Qalığı Ödə</div>
+              <div class="pm-head-sub">EV Tekstil — Sifariş ödənişi</div>
+            </div>
           </div>
-          <button
-            onclick="closePaymentModal()"
-            style="
-              background: none;
-              border: none;
-              color: #666;
-              font-size: 1.5rem;
-              cursor: pointer;
-              line-height: 1;
-            "
+          <button class="pm-close-btn" onclick="closePaymentModal()">✕</button>
+        </div>
+
+        <!-- BODY -->
+        <div class="pm-body" id="pm-body">
+          <!-- müştəri sətri -->
+          <div class="pm-client-row">
+            <div class="pm-avatar" id="pm-avatar">??</div>
+            <div>
+              <div class="pm-client-name" id="pm-client-name">—</div>
+              <div class="pm-client-meta" id="pm-client-meta">—</div>
+            </div>
+            <div class="pm-order-badge" id="pm-order-badge">#0000</div>
+          </div>
+
+          <!-- dərzi (gizli default) -->
+          <div
+            class="pm-seamstress"
+            id="pm-seamstress-row"
+            style="display: none"
           >
-            ✕
+            <span style="font-size: 1.1rem">✂️</span>
+            <div>
+              <div class="pm-seamstress-lbl">Dərzi</div>
+              <div class="pm-seamstress-val" id="pm-seamstress-val">—</div>
+            </div>
+          </div>
+
+          <!-- 3 stat -->
+          <div class="pm-stats">
+            <div class="pm-stat">
+              <div class="pm-stat-lbl">Ümumi Məbləğ</div>
+              <div class="pm-stat-val" id="pm-total">0 ₼</div>
+            </div>
+            <div class="pm-stat s-paid">
+              <div class="pm-stat-lbl">Ödənildi</div>
+              <div class="pm-stat-val" id="pm-paid">0 ₼</div>
+            </div>
+            <div class="pm-stat s-debt">
+              <div class="pm-stat-lbl">Qalıq Borc</div>
+              <div class="pm-stat-val" id="pm-debt">0 ₼</div>
+            </div>
+          </div>
+
+          <!-- ödəniş tarixçəsi -->
+          <div class="pm-hist-wrap" id="pm-hist-wrap" style="display: none">
+            <div class="pm-hist-title">Ödəniş Tarixçəsi</div>
+            <div class="pm-hist-list" id="pm-hist-list"></div>
+          </div>
+
+          <!-- məbləğ daxil et -->
+          <label class="pm-input-label">İndi Ödənilən Məbləğ (₼)</label>
+          <div class="pm-amount-wrap">
+            <span class="pm-currency-sign">₼</span>
+            <input
+              class="pm-amount-input"
+              type="number"
+              id="pm-amount"
+              placeholder="0.00"
+              min="0.01"
+              step="0.01"
+              oninput="pmCalc()"
+            />
+          </div>
+
+          <!-- tam ödə düyməsi -->
+          <button class="pm-full-btn" id="pm-full-btn" onclick="pmSetFull()">
+            Tam borcunu ödə — 0.00 ₼
+          </button>
+
+          <!-- feedback -->
+          <div class="pm-feedback" id="pm-feedback"></div>
+
+          <!-- qeyd -->
+          <label class="pm-input-label">Qeyd (istəyə görə)</label>
+          <input
+            class="pm-note-input"
+            type="text"
+            id="pm-note"
+            placeholder="Nağd, Kart, Bank köçürməsi..."
+          />
+
+          <!-- düymələr -->
+          <div class="pm-actions">
+            <button class="btn btn-outline" onclick="closePaymentModal()">
+              İptal
+            </button>
+            <button
+              class="btn btn-purple"
+              id="pm-confirm-btn"
+              onclick="pmConfirm()"
+              disabled
+            >
+              💳 Ödənişi Təsdiq Et
+            </button>
+          </div>
+        </div>
+
+        <!-- UĞUR EKRANı -->
+        <div class="pm-success" id="pm-success">
+          <div class="pm-success-circle">✅</div>
+          <div class="pm-success-title" id="pm-success-title">
+            Ödəniş qəbul edildi!
+          </div>
+          <div class="pm-success-sub" id="pm-success-sub">
+            Ödəniş uğurla qeydə alındı.
+          </div>
+          <div class="pm-success-pill" id="pm-success-pill"></div>
+          <button class="pm-success-close-btn" onclick="closePaymentModal()">
+            Bağla
           </button>
         </div>
-        <div style="padding: 24px" id="payment-modal-body"></div>
       </div>
     </div>
 
@@ -2442,89 +2869,146 @@
         document.getElementById('confirm-modal').classList.remove('open');
       }
 
+      /* ════════════════════════════════════════
+         YENİ PAYMENT MODAL FUNKSIYALARI
+      ════════════════════════════════════════ */
       function openPaymentModal(idx) {
         const o = orders[idx];
         if (!o) return;
         _paymentIdx = idx;
+
         const totalPaid = (o.payments || []).reduce((s, p) => s + p.amount, 0);
         const realRemaining = Math.max(0, o.totalPrice - totalPaid);
-        const paymentHistory =
-          (o.payments || [])
+
+        // Avatar (baş hərflər)
+        const initials = o.client.name
+          .trim()
+          .split(' ')
+          .map((w) => w[0])
+          .slice(0, 2)
+          .join('')
+          .toUpperCase();
+        document.getElementById('pm-avatar').textContent = initials;
+        document.getElementById('pm-client-name').textContent = o.client.name;
+        document.getElementById('pm-client-meta').textContent = o.client.phone;
+        document.getElementById('pm-order-badge').textContent =
+          '#' + String(o.id).padStart(4, '0');
+
+        // Dərzi
+        const seamRow = document.getElementById('pm-seamstress-row');
+        if (o.seamstress) {
+          seamRow.style.display = 'flex';
+          document.getElementById('pm-seamstress-val').textContent =
+            o.seamstress;
+        } else {
+          seamRow.style.display = 'none';
+        }
+
+        // Stat kartlar
+        document.getElementById('pm-total').textContent =
+          o.totalPrice.toFixed(2) + ' ₼';
+        document.getElementById('pm-paid').textContent =
+          totalPaid.toFixed(2) + ' ₼';
+        document.getElementById('pm-debt').textContent =
+          realRemaining.toFixed(2) + ' ₼';
+
+        // Tarixçə
+        const histWrap = document.getElementById('pm-hist-wrap');
+        const histList = document.getElementById('pm-hist-list');
+        if (o.payments && o.payments.length > 0) {
+          histWrap.style.display = '';
+          histList.innerHTML = o.payments
             .map(
-              (p) =>
-                `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dashed #eee;">
-            <span style="color:#666;font-size:0.82rem;">${p.date} ${p.note ? '· ' + p.note : ''}</span>
-            <span style="color:var(--green);font-weight:700;">+${p.amount.toFixed(2)} ₼</span>
-          </div>`,
+              (p) => `
+            <div class="pm-hist-row">
+              <div class="pm-hist-dot"></div>
+              <div class="pm-hist-info">
+                <div class="pm-hist-note">${p.note || 'Ödəniş'}</div>
+                <div class="pm-hist-date">${p.date}</div>
+              </div>
+              <div class="pm-hist-amt">+${p.amount.toFixed(2)} ₼</div>
+            </div>`,
             )
-            .join('') ||
-          '<div style="color:#ccc;font-size:0.82rem;text-align:center;padding:8px 0;">Ödəniş yoxdur</div>';
-        const seamstressHtml = o.seamstress
-          ? `<div class="seamstress-highlight"><span style="font-size:1.3rem;">✂️</span><div><div class="sh-label">Dərzi</div><div class="sh-value">${o.seamstress}</div></div></div>`
-          : '';
-        document.getElementById('payment-modal-body').innerHTML = `
-          <div style="text-align:center;margin-bottom:14px;">
-            <div style="font-size:0.78rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Müştəri</div>
-            <div style="font-size:1.1rem;font-weight:700;">${o.client.name} · ${o.client.phone}</div>
-            <div style="font-size:0.82rem;color:#888;">Sifariş #${String(o.id).padStart(4, '0')}</div>
-          </div>
-          ${seamstressHtml}
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 14px;">
-            <div style="background:#1a1a2e;border-radius:10px;padding:12px;text-align:center;">
-              <div style="font-size:0.65rem;color:#c9a96e;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px;">Ümumi Məbləğ</div>
-              <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;font-weight:700;">${o.totalPrice.toFixed(2)} ₼</div>
-            </div>
-            <div style="background:#fce4ec;border:1.5px solid #f48fb1;border-radius:10px;padding:12px;text-align:center;">
-              <div style="font-size:0.65rem;color:#c62828;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px;">Qalıq Borc</div>
-              <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#b71c1c;font-weight:700;">${realRemaining.toFixed(2)} ₼</div>
-            </div>
-          </div>
-          ${(o.payments || []).length > 0 ? `<div style="margin-bottom:14px;"><div style="font-size:0.72rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:6px;">Ödəniş Tarixi:</div><div style="background:#f9f9f9;border-radius:8px;padding:8px 12px;">${paymentHistory}</div></div>` : ''}
-          <div class="payment-input-wrap">
-            <label>İndi Ödənilən Məbləğ (₼)</label>
-            <input type="number" id="pm-amount" placeholder="Məbləği daxil edin..." min="0.01" step="0.01" oninput="calcPaymentResult(${realRemaining})" />
-          </div>
-          <div class="payment-result" id="pm-result"></div>
-          <div class="payment-input-wrap" style="margin-top:14px;">
-            <label>Qeyd (istəyə görə)</label>
-            <input type="text" id="pm-note" placeholder="məs: Nağd, Kart, Bank köçürməsi..." />
-          </div>
-          <div style="display:flex;gap:10px;margin-top:18px;">
-            <button class="btn btn-outline" style="flex:1;" onclick="closePaymentModal()">İptal</button>
-            <button class="btn btn-purple" style="flex:2;" onclick="confirmPayment(${idx},${realRemaining})">💳 Ödənişi Təsdiq Et</button>
-          </div>`;
+            .join('');
+        } else {
+          histWrap.style.display = 'none';
+        }
+
+        // Tam ödə düyməsi
+        document.getElementById('pm-full-btn').textContent =
+          'Tam borcunu ödə — ' + realRemaining.toFixed(2) + ' ₼';
+        document.getElementById('pm-full-btn').dataset.remaining =
+          realRemaining;
+
+        // Reset inputlar
+        document.getElementById('pm-amount').value = '';
+        document.getElementById('pm-note').value = '';
+        document.getElementById('pm-feedback').style.display = 'none';
+        document.getElementById('pm-confirm-btn').disabled = true;
+        document.getElementById('pm-amount').dataset.remaining = realRemaining;
+
+        // Body/success göstər
+        document.getElementById('pm-body').style.display = '';
+        document.getElementById('pm-success').style.display = 'none';
+
         document.getElementById('payment-modal').classList.add('open');
       }
 
-      function calcPaymentResult(remaining) {
-        const amt = parseFloat(document.getElementById('pm-amount').value) || 0;
-        const el = document.getElementById('pm-result');
-        if (!amt) {
-          el.style.display = 'none';
+      function pmCalc() {
+        const v = parseFloat(document.getElementById('pm-amount').value) || 0;
+        const remaining =
+          parseFloat(document.getElementById('pm-amount').dataset.remaining) ||
+          0;
+        const fb = document.getElementById('pm-feedback');
+        const btn = document.getElementById('pm-confirm-btn');
+        if (v <= 0) {
+          fb.style.display = 'none';
+          btn.disabled = true;
           return;
         }
-        el.style.display = 'block';
-        if (amt > remaining + 0.001) {
-          el.className = 'payment-result overpaid';
-          el.innerHTML = `⚠️ Ödəniş məbləği borcu aşır! <strong>${(amt - remaining).toFixed(2)} ₼</strong> üstü qaytarılacaq.`;
-        } else if (Math.abs(amt - remaining) < 0.01) {
-          el.className = 'payment-result exact';
-          el.innerHTML = `✅ Tam ödəniş! Sifariş bağlanacaq.`;
+        btn.disabled = false;
+        fb.style.display = 'block';
+        if (v > remaining + 0.001) {
+          fb.className = 'pm-feedback overpaid';
+          fb.innerHTML =
+            '⚠️ Ödəniş məbləği borcu aşır! <strong>' +
+            (v - remaining).toFixed(2) +
+            ' ₼</strong> üstü qaytarılacaq.';
+        } else if (Math.abs(v - remaining) < 0.01) {
+          fb.className = 'pm-feedback exact';
+          fb.innerHTML = '✅ Tam ödəniş! Sifariş bağlanacaq.';
         } else {
-          el.className = 'payment-result partial';
-          el.innerHTML = `📋 Qismən ödəniş. Qalıq borc: <strong>${(remaining - amt).toFixed(2)} ₼</strong>`;
+          fb.className = 'pm-feedback partial';
+          fb.innerHTML =
+            '📋 Qismən ödəniş. Qalıq borc: <strong>' +
+            (remaining - v).toFixed(2) +
+            ' ₼</strong>';
         }
       }
 
-      function confirmPayment(idx, remaining) {
-        const amt = parseFloat(document.getElementById('pm-amount').value) || 0;
-        if (amt <= 0) {
+      function pmSetFull() {
+        const remaining =
+          parseFloat(
+            document.getElementById('pm-full-btn').dataset.remaining,
+          ) || 0;
+        document.getElementById('pm-amount').value = remaining.toFixed(2);
+        pmCalc();
+      }
+
+      function pmConfirm() {
+        const idx = _paymentIdx;
+        if (idx === null) return;
+        const v = parseFloat(document.getElementById('pm-amount').value) || 0;
+        if (v <= 0) {
           showNotif('⚠️ Məbləğ daxil edin!');
           return;
         }
         const note = document.getElementById('pm-note').value.trim();
         const o = orders[idx];
-        const payAmt = Math.min(amt, remaining);
+        const remaining =
+          parseFloat(document.getElementById('pm-amount').dataset.remaining) ||
+          0;
+        const payAmt = Math.min(v, remaining);
         const today = new Date().toISOString().split('T')[0];
         if (!o.payments) o.payments = [];
         o.payments.push({
@@ -2537,22 +3021,36 @@
         o.deposit = totalPaid;
         o.paidFull = o.remaining <= 0.001;
         localStorage.setItem('ev_tekstil_orders', JSON.stringify(orders));
-        closePaymentModal();
         renderOrdersList();
-        if (o.paidFull)
-          showNotif(
-            '🎉 Sifariş tamamilə ödənildi! #' + String(o.id).padStart(4, '0'),
-          );
-        else
-          showNotif(
-            '✅ Ödəniş qeydə alındı! Qalıq: ' + o.remaining.toFixed(2) + ' ₼',
-          );
+
+        // Uğur ekranı
+        document.getElementById('pm-body').style.display = 'none';
+        const suc = document.getElementById('pm-success');
+        suc.style.display = 'flex';
+        document.getElementById('pm-success-title').textContent = o.paidFull
+          ? '🎉 Sifariş tam ödənildi!'
+          : '✅ Ödəniş qəbul edildi!';
+        document.getElementById('pm-success-sub').textContent =
+          'Sifariş #' +
+          String(o.id).padStart(4, '0') +
+          ' üçün ' +
+          payAmt.toFixed(2) +
+          ' ₼ uğurla qeydə alındı.';
+        const pill = document.getElementById('pm-success-pill');
+        if (o.paidFull) {
+          pill.textContent = 'Tam ödənildi ✅ · Qalıq: 0.00 ₼';
+          pill.className = 'pm-success-pill full';
+        } else {
+          pill.textContent = 'Qalıq borc: ' + o.remaining.toFixed(2) + ' ₼';
+          pill.className = 'pm-success-pill partial';
+        }
       }
 
       function closePaymentModal() {
         document.getElementById('payment-modal').classList.remove('open');
         _paymentIdx = null;
       }
+      /* ════════════════════════════════════════ */
 
       function openOrderModal(idx) {
         const o = orders[idx];
