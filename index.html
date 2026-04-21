@@ -193,34 +193,6 @@
       .form-grid.five {
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
       }
-      @media (max-width: 700px) {
-        .form-grid,
-        .form-grid.two,
-        .form-grid.four,
-        .form-grid.five {
-          grid-template-columns: 1fr 1fr;
-        }
-        header {
-          padding: 12px 16px;
-        }
-        header h1 {
-          font-size: 1.3rem;
-        }
-        .tabs {
-          padding: 0 8px;
-        }
-        .tab-btn {
-          padding: 12px 14px;
-          font-size: 0.78rem;
-        }
-        .main {
-          margin: 16px auto;
-          padding: 0 12px;
-        }
-        .card {
-          padding: 16px 14px;
-        }
-      }
       .form-group {
         display: flex;
         flex-direction: column;
@@ -548,8 +520,6 @@
       .modal-close:hover {
         color: var(--red);
       }
-
-      /* ── НОВЫЙ ПЛАТЁЖНЫЙ МОДАЛ ── */
       .pm-modal {
         background: #fff;
         border-radius: 16px;
@@ -959,8 +929,6 @@
       .pm-success-close-btn:hover {
         background: var(--light-gold);
       }
-      /* ── КОНЕЦ ПЛАТЁЖНОГО МОДАЛА ── */
-
       .combo-wrap {
         position: relative;
       }
@@ -989,7 +957,6 @@
         margin-top: 4px;
         font-style: italic;
       }
-
       @media print {
         body > *:not(#print-area) {
           display: none !important;
@@ -1379,6 +1346,435 @@
       .confirm-btns {
         display: flex;
         gap: 12px;
+      }
+
+      /* ═══════════════════════════════════════════
+         MOBİL VƏ TABLET ADAPTASIYA
+      ═══════════════════════════════════════════ */
+
+      /* TABLET (≤1024px) */
+      @media (max-width: 1024px) {
+        header {
+          padding: 14px 24px;
+        }
+        .tabs {
+          padding: 0 20px;
+        }
+        .main {
+          margin: 24px auto;
+          padding: 0 16px;
+        }
+        .card {
+          padding: 22px 24px;
+        }
+        .form-grid.four {
+          grid-template-columns: 1fr 1fr;
+        }
+        .form-grid.five {
+          grid-template-columns: 1fr 1fr 1fr;
+        }
+        .orders-table {
+          font-size: 0.82rem;
+        }
+        .orders-table th,
+        .orders-table td {
+          padding: 9px 8px;
+        }
+      }
+
+      /* MOBILE (≤768px) */
+      @media (max-width: 768px) {
+        header {
+          padding: 12px 16px;
+          gap: 10px;
+        }
+        .header-logo-icon {
+          width: 40px;
+          height: 40px;
+          font-size: 1.3rem;
+        }
+        header h1 {
+          font-size: 1.4rem;
+          letter-spacing: 1px;
+        }
+        header h1 span {
+          font-size: 0.62rem;
+          letter-spacing: 2px;
+        }
+        .header-right .count {
+          font-size: 0.95rem;
+        }
+        .header-right .hdate {
+          font-size: 0.72rem;
+        }
+        .tabs {
+          padding: 0 4px;
+        }
+        .tab-btn {
+          padding: 12px 14px;
+          font-size: 0.76rem;
+          letter-spacing: 0.5px;
+          flex: 1;
+          text-align: center;
+        }
+        .main {
+          margin: 14px auto;
+          padding: 0 10px;
+        }
+        .section-title {
+          font-size: 1rem;
+          margin-bottom: 12px;
+        }
+        .card {
+          padding: 16px 14px;
+          border-radius: 10px;
+          margin-bottom: 16px;
+        }
+        .form-grid,
+        .form-grid.two,
+        .form-grid.four,
+        .form-grid.five {
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+        .form-grid.two {
+          grid-template-columns: 1fr 1fr;
+        }
+        .product-icons {
+          display: flex;
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          gap: 10px;
+          margin-bottom: 18px;
+          padding-bottom: 8px;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+        }
+        .product-icons::-webkit-scrollbar {
+          display: none;
+        }
+        .product-icon-btn {
+          min-width: 82px;
+          flex-shrink: 0;
+          padding: 12px 14px;
+          font-size: 0.75rem;
+        }
+        .product-icon-btn svg {
+          width: 34px;
+          height: 34px;
+        }
+        .room-measure-row {
+          grid-template-columns: 1fr;
+          gap: 12px;
+          padding: 12px 12px;
+        }
+        .fold-options {
+          gap: 6px;
+        }
+        .fold-opt {
+          padding: 6px 10px;
+          font-size: 0.78rem;
+          min-height: 38px;
+          display: inline-flex;
+          align-items: center;
+        }
+        .measure-opts {
+          gap: 14px;
+        }
+        .btn {
+          padding: 10px 18px;
+          font-size: 0.85rem;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+          font-size: 16px;
+          padding: 9px 11px;
+        }
+        .form-group label {
+          font-size: 0.72rem;
+        }
+        .combo-wrap input[list] {
+          font-size: 16px;
+          padding: 9px 30px 9px 11px;
+        }
+        #items-preview-wrap .card {
+          overflow-x: auto;
+          padding: 0;
+        }
+        #items-preview-wrap table {
+          min-width: 680px;
+        }
+        #orders-list-content {
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        .orders-table {
+          min-width: 780px;
+          font-size: 0.8rem;
+        }
+        .orders-table th,
+        .orders-table td {
+          padding: 8px 7px;
+          white-space: nowrap;
+        }
+        .modal {
+          width: 99%;
+          max-width: 100%;
+          padding: 18px 14px 16px;
+          border-radius: 12px;
+          max-height: 95vh;
+          margin: 6px;
+        }
+        .modal-close {
+          top: 12px;
+          right: 12px;
+        }
+        .pm-modal {
+          width: 99%;
+          max-width: 100%;
+          margin: 6px;
+          border-radius: 14px;
+        }
+        .pm-head {
+          padding: 14px 16px;
+        }
+        .pm-head-title {
+          font-size: 0.98rem;
+        }
+        .pm-body {
+          padding: 14px 14px 18px;
+        }
+        .pm-stats {
+          gap: 6px;
+        }
+        .pm-stat {
+          padding: 8px 8px;
+        }
+        .pm-stat-lbl {
+          font-size: 0.58rem;
+        }
+        .pm-stat-val {
+          font-size: 0.9rem;
+        }
+        .pm-amount-input {
+          height: 52px;
+          font-size: 1.3rem;
+        }
+        .pm-actions {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+        .pm-actions .btn {
+          justify-content: center;
+        }
+        .notif {
+          top: 10px;
+          right: 10px;
+          left: 10px;
+          font-size: 0.85rem;
+          padding: 11px 16px;
+        }
+        .confirm-box {
+          width: 94%;
+          max-width: 340px;
+          padding: 24px 20px 20px;
+        }
+        #preview-body {
+          padding: 10px 6px;
+          max-height: 75vh;
+        }
+        .empty-state {
+          padding: 40px 16px;
+        }
+        /* Table scroll hint */
+        .tbl-scroll-hint {
+          text-align: center;
+          font-size: 0.68rem;
+          color: #bbb;
+          padding: 5px 0 2px;
+          letter-spacing: 1px;
+          display: block;
+        }
+        /* Sticky save bar */
+        .mobile-sticky-save {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: var(--dark);
+          padding: 11px 13px;
+          display: flex;
+          gap: 9px;
+          z-index: 500;
+          box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.28);
+          border-top: 2px solid var(--gold);
+          transition: transform 0.3s ease;
+        }
+        .mobile-sticky-save.hide {
+          transform: translateY(105%);
+        }
+        .mobile-sticky-save .btn {
+          flex: 1;
+          justify-content: center;
+          font-size: 0.86rem;
+          padding: 11px 8px;
+        }
+        #tab-new-order {
+          padding-bottom: 72px;
+        }
+      }
+
+      /* SMALL MOBILE (≤480px) */
+      @media (max-width: 480px) {
+        header {
+          padding: 10px 12px;
+        }
+        header h1 {
+          font-size: 1.15rem;
+        }
+        .header-logo-icon {
+          width: 36px;
+          height: 36px;
+          font-size: 1.1rem;
+          border-radius: 8px;
+        }
+        .header-right .count {
+          font-size: 0.82rem;
+        }
+        .header-right .hdate {
+          display: none;
+        }
+        .tab-btn {
+          padding: 11px 8px;
+          font-size: 0.7rem;
+        }
+        .form-grid.four,
+        .form-grid.five {
+          grid-template-columns: 1fr;
+        }
+        .form-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 8px;
+        }
+        .form-grid.two {
+          grid-template-columns: 1fr;
+        }
+        .product-icon-btn {
+          min-width: 72px;
+          padding: 10px 10px;
+          font-size: 0.68rem;
+        }
+        .product-icon-btn svg {
+          width: 28px;
+          height: 28px;
+        }
+        .fold-opt {
+          padding: 5px 8px;
+          font-size: 0.72rem;
+        }
+        .room-measure-row {
+          padding: 10px 10px;
+        }
+        .measure-opt {
+          font-size: 0.82rem;
+        }
+        .product-form > .btn {
+          width: 100%;
+          justify-content: center;
+        }
+        .section-title {
+          font-size: 0.88rem;
+          gap: 8px;
+        }
+        .card {
+          padding: 12px 10px;
+          border-radius: 9px;
+        }
+        .pm-stats {
+          grid-template-columns: 1fr;
+          gap: 5px;
+        }
+        .pm-stat {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 8px 12px;
+          text-align: left;
+        }
+        .pm-stat-lbl {
+          font-size: 0.7rem;
+          margin-bottom: 0;
+        }
+        .pm-stat-val {
+          font-size: 1rem;
+        }
+        .pm-client-row {
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+        .pm-order-badge {
+          margin-left: 0;
+        }
+        .confirm-icon {
+          width: 50px;
+          height: 50px;
+          font-size: 1.4rem;
+        }
+        .confirm-title {
+          font-size: 1rem;
+        }
+        #preview-body {
+          padding: 6px 2px;
+        }
+      }
+
+      /* EXTRA SMALL (≤360px) */
+      @media (max-width: 360px) {
+        header h1 {
+          font-size: 1rem;
+        }
+        .tab-btn {
+          font-size: 0.62rem;
+          padding: 10px 5px;
+        }
+        .card {
+          padding: 10px 8px;
+        }
+        .form-grid,
+        .form-grid.two {
+          grid-template-columns: 1fr;
+        }
+        .product-icon-btn {
+          min-width: 66px;
+          padding: 8px 7px;
+        }
+      }
+
+      /* Touch device hover fix */
+      @media (hover: none) {
+        .btn:hover {
+          transform: none;
+        }
+        .product-icon-btn:hover {
+          transform: none;
+        }
+        .fold-opt:hover:not(.active) {
+          background: var(--light-gold);
+          border-color: var(--border);
+          color: var(--accent);
+        }
+      }
+
+      /* Min tap target size */
+      @media (max-width: 768px) {
+        .fold-opt,
+        .measure-opt,
+        .btn,
+        .tab-btn,
+        .product-icon-btn {
+          min-height: 40px;
+        }
       }
     </style>
   </head>
@@ -2271,7 +2667,7 @@
       </div>
     </div>
 
-    <!-- PAYMENT MODAL (YENİ) -->
+    <!-- PAYMENT MODAL -->
     <div class="modal-overlay" id="payment-modal">
       <div class="pm-modal">
         <div class="pm-head">
@@ -2284,10 +2680,7 @@
           </div>
           <button class="pm-close-btn" onclick="closePaymentModal()">✕</button>
         </div>
-
-        <!-- BODY -->
         <div class="pm-body" id="pm-body">
-          <!-- müştəri sətri -->
           <div class="pm-client-row">
             <div class="pm-avatar" id="pm-avatar">??</div>
             <div>
@@ -2296,8 +2689,6 @@
             </div>
             <div class="pm-order-badge" id="pm-order-badge">#0000</div>
           </div>
-
-          <!-- dərzi (gizli default) -->
           <div
             class="pm-seamstress"
             id="pm-seamstress-row"
@@ -2309,8 +2700,6 @@
               <div class="pm-seamstress-val" id="pm-seamstress-val">—</div>
             </div>
           </div>
-
-          <!-- 3 stat -->
           <div class="pm-stats">
             <div class="pm-stat">
               <div class="pm-stat-lbl">Ümumi Məbləğ</div>
@@ -2325,14 +2714,10 @@
               <div class="pm-stat-val" id="pm-debt">0 ₼</div>
             </div>
           </div>
-
-          <!-- ödəniş tarixçəsi -->
           <div class="pm-hist-wrap" id="pm-hist-wrap" style="display: none">
             <div class="pm-hist-title">Ödəniş Tarixçəsi</div>
             <div class="pm-hist-list" id="pm-hist-list"></div>
           </div>
-
-          <!-- məbləğ daxil et -->
           <label class="pm-input-label">İndi Ödənilən Məbləğ (₼)</label>
           <div class="pm-amount-wrap">
             <span class="pm-currency-sign">₼</span>
@@ -2346,16 +2731,10 @@
               oninput="pmCalc()"
             />
           </div>
-
-          <!-- tam ödə düyməsi -->
           <button class="pm-full-btn" id="pm-full-btn" onclick="pmSetFull()">
             Tam borcunu ödə — 0.00 ₼
           </button>
-
-          <!-- feedback -->
           <div class="pm-feedback" id="pm-feedback"></div>
-
-          <!-- qeyd -->
           <label class="pm-input-label">Qeyd (istəyə görə)</label>
           <input
             class="pm-note-input"
@@ -2363,8 +2742,6 @@
             id="pm-note"
             placeholder="Nağd, Kart, Bank köçürməsi..."
           />
-
-          <!-- düymələr -->
           <div class="pm-actions">
             <button class="btn btn-outline" onclick="closePaymentModal()">
               İptal
@@ -2379,8 +2756,6 @@
             </button>
           </div>
         </div>
-
-        <!-- UĞUR EKRANı -->
         <div class="pm-success" id="pm-success">
           <div class="pm-success-circle">✅</div>
           <div class="pm-success-title" id="pm-success-title">
@@ -2532,6 +2907,7 @@
             day: 'numeric',
           });
         updateHeaderCount();
+        initMobile();
       });
 
       function calcRemaining() {
@@ -2561,6 +2937,13 @@
           .getElementById('tablist')
           .classList.toggle('active', tab === 'orders-list');
         if (tab === 'orders-list') renderOrdersList();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Sticky bar tab sync
+        const sbar = document.getElementById('mobile-sticky-save');
+        if (sbar) {
+          if (tab !== 'new-order') sbar.classList.add('hide');
+        }
+        if (tab === 'orders-list') setTimeout(addScrollHints, 150);
       }
 
       function selectProduct(type) {
@@ -2573,6 +2956,14 @@
           .forEach((f) => (f.style.display = 'none'));
         document.getElementById('form-placeholder').style.display = 'none';
         document.getElementById('form-' + type).style.display = '';
+        // Auto-scroll on mobile
+        if (window.innerWidth <= 768) {
+          setTimeout(() => {
+            const form = document.getElementById('form-' + type);
+            if (form)
+              form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }, 80);
+        }
       }
 
       function selectFold(el, hiddenId) {
@@ -2688,6 +3079,7 @@
         );
         if (firstRadio) firstRadio.checked = true;
         showNotif('✅ Məhsul əlavə edildi!');
+        setTimeout(addScrollHints, 100);
       }
 
       function renderItemsPreview() {
@@ -2848,6 +3240,7 @@
           })
           .join('')}
         </tbody></table>`;
+        setTimeout(addScrollHints, 50);
       }
 
       function deleteOrder(i) {
@@ -2869,18 +3262,12 @@
         document.getElementById('confirm-modal').classList.remove('open');
       }
 
-      /* ════════════════════════════════════════
-         YENİ PAYMENT MODAL FUNKSIYALARI
-      ════════════════════════════════════════ */
       function openPaymentModal(idx) {
         const o = orders[idx];
         if (!o) return;
         _paymentIdx = idx;
-
         const totalPaid = (o.payments || []).reduce((s, p) => s + p.amount, 0);
         const realRemaining = Math.max(0, o.totalPrice - totalPaid);
-
-        // Avatar (baş hərflər)
         const initials = o.client.name
           .trim()
           .split(' ')
@@ -2893,8 +3280,6 @@
         document.getElementById('pm-client-meta').textContent = o.client.phone;
         document.getElementById('pm-order-badge').textContent =
           '#' + String(o.id).padStart(4, '0');
-
-        // Dərzi
         const seamRow = document.getElementById('pm-seamstress-row');
         if (o.seamstress) {
           seamRow.style.display = 'flex';
@@ -2903,16 +3288,12 @@
         } else {
           seamRow.style.display = 'none';
         }
-
-        // Stat kartlar
         document.getElementById('pm-total').textContent =
           o.totalPrice.toFixed(2) + ' ₼';
         document.getElementById('pm-paid').textContent =
           totalPaid.toFixed(2) + ' ₼';
         document.getElementById('pm-debt').textContent =
           realRemaining.toFixed(2) + ' ₼';
-
-        // Tarixçə
         const histWrap = document.getElementById('pm-hist-wrap');
         const histList = document.getElementById('pm-hist-list');
         if (o.payments && o.payments.length > 0) {
@@ -2922,10 +3303,7 @@
               (p) => `
             <div class="pm-hist-row">
               <div class="pm-hist-dot"></div>
-              <div class="pm-hist-info">
-                <div class="pm-hist-note">${p.note || 'Ödəniş'}</div>
-                <div class="pm-hist-date">${p.date}</div>
-              </div>
+              <div class="pm-hist-info"><div class="pm-hist-note">${p.note || 'Ödəniş'}</div><div class="pm-hist-date">${p.date}</div></div>
               <div class="pm-hist-amt">+${p.amount.toFixed(2)} ₼</div>
             </div>`,
             )
@@ -2933,24 +3311,17 @@
         } else {
           histWrap.style.display = 'none';
         }
-
-        // Tam ödə düyməsi
         document.getElementById('pm-full-btn').textContent =
           'Tam borcunu ödə — ' + realRemaining.toFixed(2) + ' ₼';
         document.getElementById('pm-full-btn').dataset.remaining =
           realRemaining;
-
-        // Reset inputlar
         document.getElementById('pm-amount').value = '';
         document.getElementById('pm-note').value = '';
         document.getElementById('pm-feedback').style.display = 'none';
         document.getElementById('pm-confirm-btn').disabled = true;
         document.getElementById('pm-amount').dataset.remaining = realRemaining;
-
-        // Body/success göstər
         document.getElementById('pm-body').style.display = '';
         document.getElementById('pm-success').style.display = 'none';
-
         document.getElementById('payment-modal').classList.add('open');
       }
 
@@ -3022,8 +3393,6 @@
         o.paidFull = o.remaining <= 0.001;
         localStorage.setItem('ev_tekstil_orders', JSON.stringify(orders));
         renderOrdersList();
-
-        // Uğur ekranı
         document.getElementById('pm-body').style.display = 'none';
         const suc = document.getElementById('pm-success');
         suc.style.display = 'flex';
@@ -3050,7 +3419,6 @@
         document.getElementById('payment-modal').classList.remove('open');
         _paymentIdx = null;
       }
-      /* ════════════════════════════════════════ */
 
       function openOrderModal(idx) {
         const o = orders[idx];
@@ -3082,12 +3450,9 @@
             : '';
         const seamstressHtml = o.seamstress
           ? `<div style="margin-top:10px;background:#fce4ec;border:1.5px solid #f48fb1;border-radius:8px;padding:10px 15px;display:flex;align-items:center;gap:10px;">
-              <span style="font-size:1.3rem;">✂️</span>
-              <div>
-                <div style="font-size:0.72rem;font-weight:700;color:#880e4f;text-transform:uppercase;letter-spacing:0.7px;">Dərzi</div>
-                <div style="font-weight:700;font-size:1rem;color:#880e4f;">${o.seamstress}</div>
-              </div>
-            </div>`
+          <span style="font-size:1.3rem;">✂️</span>
+          <div><div style="font-size:0.72rem;font-weight:700;color:#880e4f;text-transform:uppercase;letter-spacing:0.7px;">Dərzi</div>
+          <div style="font-weight:700;font-size:1rem;color:#880e4f;">${o.seamstress}</div></div></div>`
           : '';
         document.getElementById('modal-content').innerHTML = `
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
@@ -3330,8 +3695,7 @@ body{font-family:'Lato',Arial,sans-serif;background:#fff;margin:0;padding:0;}
 .print-warning{margin-top:8px;font-size:7pt;color:#c0392b;font-weight:700;text-align:center;padding:5px 8px;background:#fff5f5;border-radius:4px;border:1px solid #f5c6cb;}
 .print-measure-badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:6.5pt;font-weight:700;letter-spacing:0.3px;}
 .print-measure-badge.shop{background:#e3f2fd;color:#1565c0;}
-.print-measure-badge.client{background:#fff8e1;color:#e65100;}
-`;
+.print-measure-badge.client{background:#fff8e1;color:#e65100;}`;
 
       function doPrint() {
         if (_printIdx === null) return;
@@ -3385,6 +3749,81 @@ body{font-family:'Lato',Arial,sans-serif;background:#fff;margin:0;padding:0;}
         el.style.display = 'block';
         clearTimeout(el._t);
         el._t = setTimeout(() => (el.style.display = 'none'), 3200);
+      }
+
+      /* ══════════════════════════════════════
+         MOBİL UX FUNKSIYALARI
+      ══════════════════════════════════════ */
+      function initMobile() {
+        if (window.innerWidth > 768) return;
+
+        // Sticky save bar
+        const bar = document.createElement('div');
+        bar.id = 'mobile-sticky-save';
+        bar.className = 'mobile-sticky-save hide';
+        bar.innerHTML = `
+          <button class="btn btn-outline" onclick="clearForm()" style="flex:0 0 44px;padding:11px 0;justify-content:center;">🗑️</button>
+          <button class="btn btn-gold" onclick="saveOrder()">✅ Sifarişi Qeydə Al</button>`;
+        document.body.appendChild(bar);
+
+        let lastY = 0;
+        window.addEventListener(
+          'scroll',
+          function () {
+            const sbar = document.getElementById('mobile-sticky-save');
+            if (!sbar) return;
+            const tabNew = document.getElementById('tab-new-order');
+            if (!tabNew || tabNew.style.display === 'none') {
+              sbar.classList.add('hide');
+              return;
+            }
+            if (window.scrollY > 200) sbar.classList.remove('hide');
+            else sbar.classList.add('hide');
+            lastY = window.scrollY;
+          },
+          { passive: true },
+        );
+
+        // Prevent double-tap zoom on interactive elements
+        let lastTouch = 0;
+        document.addEventListener(
+          'touchend',
+          function (e) {
+            const now = Date.now();
+            const target = e.target;
+            if (now - lastTouch < 300) {
+              if (
+                target.tagName === 'BUTTON' ||
+                target.classList.contains('fold-opt') ||
+                target.closest('button')
+              ) {
+                e.preventDefault();
+              }
+            }
+            lastTouch = now;
+          },
+          { passive: false },
+        );
+      }
+
+      function addScrollHints() {
+        if (window.innerWidth > 768) return;
+        [
+          document.querySelector('#items-preview-wrap .card'),
+          document.getElementById('orders-list-content'),
+        ].forEach(function (el) {
+          if (!el) return;
+          if (
+            el.nextElementSibling &&
+            el.nextElementSibling.classList &&
+            el.nextElementSibling.classList.contains('tbl-scroll-hint')
+          )
+            return;
+          const hint = document.createElement('div');
+          hint.className = 'tbl-scroll-hint';
+          hint.textContent = '← cədvəli sürüşdürün →';
+          el.parentNode && el.parentNode.insertBefore(hint, el.nextSibling);
+        });
       }
     </script>
   </body>
